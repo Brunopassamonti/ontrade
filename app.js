@@ -3,57 +3,57 @@ const MASTER = "https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_d
 const metrics = {
   TODOS: [
     { label: "Base BAM", value: 560, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
-    { label: "PO hoje", value: 72, foot: "meta do time: 176", icon: "✓" },
-    { label: "Gap crítico", value: 71, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 88, foot: "36 dentro do BAM", icon: "◆" }
+    { label: "PO hoje", value: 73, foot: "meta do time: 176", icon: "✓" },
+    { label: "Gap crítico", value: 69, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco BAM", value: 41, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "Jerry Whilem": [
     { label: "Base BAM", value: 104, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
-    { label: "PO hoje", value: 17, foot: "meta: 46", icon: "✓" },
-    { label: "Gap crítico", value: 10, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 20, foot: "14 dentro do BAM", icon: "◆" }
+    { label: "PO hoje", value: 13, foot: "meta: 46", icon: "✓" },
+    { label: "Gap crítico", value: 7, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco BAM", value: 15, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "Julia Gutvilen": [
     { label: "Base BAM", value: 55, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
-    { label: "Gap crítico", value: 7, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 2, foot: "1 dentro do BAM", icon: "◆" }
+    { label: "Gap crítico", value: 8, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco BAM", value: 2, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "João Pedro Marques": [
     { label: "Base BAM", value: 151, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
-    { label: "PO hoje", value: 36, foot: "meta: 60", icon: "✓" },
-    { label: "Gap crítico", value: 3, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 17, foot: "12 dentro do BAM", icon: "◆" }
+    { label: "PO hoje", value: 40, foot: "meta: 60", icon: "✓" },
+    { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco BAM", value: 13, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "Maria Clarentino": [
     { label: "Base BAM", value: 26, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
     { label: "Gap crítico", value: 17, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 17, foot: "3 dentro do BAM", icon: "◆" }
+    { label: "Casas foco BAM", value: 3, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "Mani Filardi": [
     { label: "Base BAM", value: 52, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 1, foot: "meta: 10", icon: "✓" },
-    { label: "Gap crítico", value: 29, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 10, foot: "3 dentro do BAM", icon: "◆" }
+    { label: "Gap crítico", value: 32, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco BAM", value: 2, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "Marcelo Martins": [
     { label: "Base BAM", value: 132, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
-    { label: "PO hoje", value: 18, foot: "meta: 30", icon: "✓" },
+    { label: "PO hoje", value: 19, foot: "meta: 30", icon: "✓" },
     { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 1, foot: "1 dentro do BAM", icon: "◆" }
+    { label: "Casas foco BAM", value: 2, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "Richard Cordeiro": [
     { label: "Base BAM", value: 26, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
     { label: "Gap crítico", value: 5, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 11, foot: "2 dentro do BAM", icon: "◆" }
+    { label: "Casas foco BAM", value: 4, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "Gustavo Viana": [
     { label: "Base BAM", value: 14, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta pendente", icon: "✓" },
     { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
-    { label: "Casas foco", value: 0, foot: "0 dentro do BAM", icon: "◆" }
+    { label: "Casas foco BAM", value: 0, foot: "marcadas na Base Única", icon: "◆" }
   ]
 };
 
@@ -64,21 +64,21 @@ const pendingMetrics = [
   { label: "Casas foco", value: "—", foot: "consultar Master", icon: "◆" }
 ];
 
-const scorecardLabels = ["Perfect Outlet / ON6", "Contratos foco", "Cardápios novos no Q3", "Treinamentos no Q3", "Base visitada no Q3"];
+const scorecardLabels = ["Perfect Outlet / ON6", "Contratos foco", "Cardápio de impacto ou ativação de consumo", "Treinamentos no Q3", "Base visitada no Q3"];
 const scorecardWeights = [30, 25, 25, 10, 10];
 const quarterScorecards = {
-  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 560], actuals: [72, 0, null, 110, 221] },
-  "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46,6,10,36,104], actuals: [17,0,null,28,48] },
-  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10,1,3,10,55], actuals: [0,0,null,1,14] },
-  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60,8,10,36,151], actuals: [36,0,null,42,51] },
-  "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10,2,3,10,26], actuals: [0,0,null,0,18] },
-  "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10,2,3,10,52], actuals: [1,0,null,1,37] },
-  "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30,8,10,36,132], actuals: [18,0,null,38,45] },
-  "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10,1,3,10,26], actuals: [0,0,null,0,8] },
-  "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null,null,null,null,14], actuals: [0,0,null,0,0] }
+  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 560], actuals: [73, null, null, 104, 207] },
+  "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46,6,10,36,104], actuals: [13,null,null,19,44] },
+  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10,1,3,10,55], actuals: [0,null,null,1,11] },
+  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60,8,10,36,151], actuals: [40,null,null,43,47] },
+  "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10,2,3,10,26], actuals: [0,null,null,0,17] },
+  "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10,2,3,10,52], actuals: [1,null,null,2,35] },
+  "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30,8,10,36,132], actuals: [19,null,null,38,45] },
+  "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10,1,3,10,26], actuals: [0,null,null,1,8] },
+  "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null,null,null,null,14], actuals: [0,null,null,0,0] }
 };
 
-const tapData = {
+const legacyTapData = {
   "Jerry Whilem": [
     {
       "name": "Baiuca DJ Bar - Santo Cristo",
@@ -337,6 +337,9 @@ const tapData = {
   "Gustavo Viana": []
 };
 
+const tapData = window.PORTAL_DATA?.tapData || legacyTapData;
+const territoryProfiles = window.PORTAL_DATA?.territoryProfiles || {};
+
 const actions = [
   { ba: "Jerry Whilem", short: "Jerry", route: "Botafogo", client: "Macuna", action: "Executar treinamento e reauditar", kpi: "ON6 + Treinamento", impact: "+1 PO +1 treinamento", deadline: "Esta semana", status: "A fazer" },
   { ba: "Jerry Whilem", short: "Jerry", route: "Lagoa", client: "Aldeia + Caza Lagoa", action: "Resolver ativação e preço nas duas contas na mesma rota", kpi: "ON6", impact: "Até +2 PO", deadline: "1–2 semanas", status: "A fazer" },
@@ -354,6 +357,8 @@ const actions = [
 const linkGroups = {
   results: [
     { icon: "↗", title: "Report mensal", note: "Resultados e entregas do mês", type: "Formulário", url: "https://docs.google.com/forms/d/e/1FAIpQLSf81YoXVs_Dfj7vdyCvICGzBhWwne7PfQewtZL947MbVUsZrw/viewform" },
+    { icon: "A", title: "Cardápio de impacto e ativações", note: "Registrar casa, entrega, quantidade e foto", type: "Planilha", url: window.PORTAL_DATA.activationRegister },
+    { icon: "▣", title: "Pastas de evidências por BA", note: "Salvar fotos nas pastas individuais", type: "Drive", url: window.PORTAL_DATA.evidenceRoot },
     { icon: "EV", title: "Eventos SP/RJ", note: "Incluir eventos e acompanhar o andamento", type: "Planilha", url: "https://docs.google.com/spreadsheets/d/1X3y1y4Yk8BzZJ4Z874EbIjhbM_ox0i9a/edit?usp=drivesdk&ouid=111432047122403337192&rtpof=true&sd=true" },
     { icon: "+", title: "Novo cliente · Interfood", note: "Cadastrar uma nova conta na Interfood", type: "Formulário", url: "https://docs.google.com/forms/d/e/1FAIpQLSdUSl9LilkInxFbnkYPVOcAG65hppRZrvPCZHHxg8ObVm5DQA/viewform" },
     { icon: "✓", title: "Registros da semana", note: "Ações, entregas e histórico operacional", type: "Planilha", url: `${MASTER}#gid=2109876543` },
@@ -509,20 +514,57 @@ function selectedActions() {
   });
 }
 
+function territoryTags(items, emptyLabel = "A mapear") {
+  const values = items?.length ? items : [emptyLabel];
+  return values.map(item => `<span>${item}</span>`).join("");
+}
+
+function setTerritoryMap(query, activeLabel) {
+  const embed = `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+  const open = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+  document.querySelector("#territory-map").src = embed;
+  document.querySelector("#open-territory-map").href = open;
+  document.querySelectorAll("#map-tabs button").forEach(button => button.classList.toggle("active", button.textContent === activeLabel));
+}
+
+function renderTerritory(ba) {
+  const profile = territoryProfiles[ba] || territoryProfiles.TODOS;
+  const firstName = ba === "TODOS" ? "time" : ba.split(" ")[0];
+  document.querySelector("#territory-title").textContent = ba === "TODOS" ? "Mapa do time" : `Território de ${firstName}`;
+  document.querySelector("#territory-city").textContent = profile.city;
+  document.querySelector("#pillar-grid").innerHTML = profile.pillars.map((pillar, index) => `
+    <article class="pillar-card ${pillar.active ? "active" : "pending"}">
+      <span>0${index + 1}</span><div><strong>${pillar.name}</strong><small>${pillar.note}</small></div>
+    </article>`).join("");
+  document.querySelector("#territory-areas").innerHTML = territoryTags(profile.areas);
+  document.querySelector("#territory-hotzones").innerHTML = territoryTags(profile.hotzones);
+  document.querySelector("#territory-castles").innerHTML = territoryTags(profile.castles, "Nenhum Castelo validado");
+
+  const evidence = document.querySelector("#territory-evidence");
+  evidence.href = ba === "TODOS" ? window.PORTAL_DATA.evidenceRoot : window.PORTAL_DATA.evidenceFolders[ba];
+  evidence.querySelector("strong").textContent = ba === "TODOS" ? "Abrir pastas de evidências" : `Abrir pasta de ${firstName}`;
+
+  document.querySelector("#map-tabs").innerHTML = profile.mapAreas.map((area, index) => `<button type="button" class="${index === 0 ? "active" : ""}" data-query="${area.query}">${area.label}</button>`).join("");
+  document.querySelectorAll("#map-tabs button").forEach(button => button.addEventListener("click", () => setTerritoryMap(button.dataset.query, button.textContent)));
+  const initial = profile.mapAreas[0];
+  setTerritoryMap(initial.query, initial.label);
+}
+
 function renderDashboard() {
   const ba = baSelect.value;
   const data = metrics[ba] || pendingMetrics;
   document.querySelector("#metric-grid").innerHTML = metricCards(data);
   document.querySelector("#scorecard-grid").innerHTML = scorecardRows(ba);
   renderTapData(ba);
+  renderTerritory(ba);
   const filtered = actions.filter(item => ba === "TODOS" || item.ba === ba);
   document.querySelector("#home-actions").innerHTML = filtered.length ? actionRows(filtered) : `<div class="empty-state"><strong>Sem prioridade registrada para esta visão.</strong><span>Consulte o TO DO por BA na Master.</span></div>`;
   document.querySelector("#focus-title").textContent = ba === "TODOS" ? "Fechar o gap começando pelas contas 5/6 e 4/6." : `Priorizar as entregas de ${ba.split(" ")[0]} nesta semana.`;
   const targets = ba === "Jerry Whilem"
-    ? [[7,"PO"],[2,"Contratos"],[2,"Cardápios"],[8,"Treinamentos"]]
+    ? [[7,"PO"],[2,"Contratos"],[2,"Ativações"],[8,"Treinamentos"]]
     : ba === "TODOS"
-      ? [[21,"PO"],[7,"Contratos"],[9,"Cardápios"],[30,"Treinamentos"]]
-      : [["—","PO"],["—","Contratos"],["—","Cardápios"],["—","Treinamentos"]];
+      ? [[21,"PO"],[7,"Contratos"],[9,"Ativações"],[30,"Treinamentos"]]
+      : [["—","PO"],["—","Contratos"],["—","Ativações"],["—","Treinamentos"]];
   document.querySelector("#focus-targets").innerHTML = targets.map(([value,label]) => `<div class="target-pill"><strong>${value}</strong><small>${label}</small></div>`).join("");
   renderActions();
 }
