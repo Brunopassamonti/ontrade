@@ -64,18 +64,18 @@ const pendingMetrics = [
   { label: "Casas foco", value: "—", foot: "consultar Master", icon: "◆" }
 ];
 
-const scorecardLabels = ["Perfect Outlet / ON6", "Contratos foco", "Cardápios novos no Q3", "Treinamentos no Q3", "Não visitados no Q3"];
+const scorecardLabels = ["Perfect Outlet / ON6", "Contratos foco", "Cardápios novos no Q3", "Treinamentos no Q3", "Base visitada no Q3"];
 const scorecardWeights = [30, 25, 25, 10, 10];
 const quarterScorecards = {
-  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 0], actuals: [72, 0, null, 110, 0] },
-  "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46,6,10,36,0], actuals: [17,0,null,28,0] },
-  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10,1,3,10,0], actuals: [0,0,null,1,0] },
-  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60,8,10,36,null], actuals: [36,0,null,42,0] },
-  "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10,2,3,10,0], actuals: [0,0,null,0,0] },
-  "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10,2,3,10,0], actuals: [1,0,null,1,0] },
-  "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30,8,10,36,null], actuals: [18,0,null,38,0] },
-  "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10,1,3,10,0], actuals: [0,0,null,0,0] },
-  "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null,null,null,null,null], actuals: [0,0,null,0,0] }
+  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 220], actuals: [72, 0, null, 110, 220] },
+  "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46,6,10,36,63], actuals: [17,0,null,28,63] },
+  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10,1,3,10,10], actuals: [0,0,null,1,10] },
+  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60,8,10,36,46], actuals: [36,0,null,42,46] },
+  "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10,2,3,10,17], actuals: [0,0,null,0,17] },
+  "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10,2,3,10,32], actuals: [1,0,null,1,32] },
+  "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30,8,10,36,45], actuals: [18,0,null,38,45] },
+  "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10,1,3,10,7], actuals: [0,0,null,0,7] },
+  "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null,null,null,null,null], actuals: [0,0,null,0,null] }
 };
 
 const tapData = {
@@ -429,16 +429,13 @@ function scorecardRows(ba) {
   return scorecardLabels.map((label, index) => {
     const target = card.targets[index];
     const actual = card.actuals[index];
-    const isInverse = index === 4;
     const percent = target === null || actual === null
       ? null
-      : isInverse && target === 0
-        ? (actual === 0 ? 100 : 0)
-        : target > 0
+      : target > 0
           ? Math.min(100, Math.round((actual / target) * 100))
           : 0;
-    const currentLabel = actual === null ? "A apurar" : isInverse ? `${actual}%` : actual;
-    const targetLabel = target === null ? "A confirmar" : isInverse ? `${target}%` : target;
+    const currentLabel = actual === null ? "A apurar" : actual;
+    const targetLabel = target === null ? "A confirmar" : target;
     return `
       <article class="scorecard-row ${percent === null ? "pending" : ""}">
         <div class="scorecard-kpi"><strong>${label}</strong><small>Peso ${scorecardWeights[index]}%</small></div>
