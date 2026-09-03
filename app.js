@@ -67,15 +67,58 @@ const pendingMetrics = [
 const scorecardLabels = ["Perfect Outlet / ON6", "Contratos foco", "Cardápios novos no Q3", "Treinamentos no Q3", "Não visitados no Q3"];
 const scorecardWeights = [30, 25, 25, 10, 10];
 const quarterScorecards = {
-  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 0], actuals: [71, 0, null, null, 0] },
-  "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46, 6, 10, 36, 0], actuals: [13, 0, null, null, 0] },
-  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10, 1, 3, 10, 0], actuals: [0, 0, null, null, 0] },
-  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60, 8, 10, 36, null], actuals: [39, 0, null, null, 0] },
-  "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10, 2, 3, 10, 0], actuals: [0, 0, null, null, 0] },
-  "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10, 2, 3, 10, 0], actuals: [1, 0, null, null, 0] },
-  "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30, 8, 10, 36, null], actuals: [18, 0, null, null, 0] },
-  "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10, 1, 3, 10, 0], actuals: [0, 0, null, null, 0] },
-  "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null, null, null, null, null], actuals: [0, 0, null, null, 0] }
+  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 0], actuals: [71, 0, null, 101, 0] },
+  "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46, 6, 10, 36, 0], actuals: [13, 0, null, 19, 0] },
+  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10, 1, 3, 10, 0], actuals: [0, 0, null, 1, 0] },
+  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60, 8, 10, 36, null], actuals: [39, 0, null, 42, 0] },
+  "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10, 2, 3, 10, 0], actuals: [0, 0, null, 0, 0] },
+  "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10, 2, 3, 10, 0], actuals: [1, 0, null, 1, 0] },
+  "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30, 8, 10, 36, null], actuals: [18, 0, null, 38, null] },
+  "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10, 1, 3, 10, 0], actuals: [0, 0, null, 0, 0] },
+  "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null, null, null, null, null], actuals: [0, 0, null, 0, 0] }
+};
+
+const tapData = {
+  "Jerry Whilem": [
+    { name: "Baiuca DJ Bar - Santo Cristo", area: "Santo Cristo", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "Cervejaria Madre de Capotá", area: "Botafogo", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "Circo Voador", area: "Lapa", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "Pink Flamingo - Copacabana", area: "Copacabana", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "Trauma Bar - Centro", area: "Centro", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "Vuvu - Botafogo", area: "Botafogo", type: "Tap tripla", units: 1, capacity: 3 }
+  ],
+  "Julia Gutvilen": [],
+  "João Pedro Marques": [
+    { name: "AMATA", area: "São Paulo", type: "3 taps simples", units: 3, capacity: 3 },
+    { name: "Baixo Pinheiros", area: "Pinheiros", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "BALLFIVE", area: "Consolação", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "Baron Rock Bar", area: "Centro", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "BOTECO AUGUSTA", area: "Centro", type: "2 taps triplas", units: 2, capacity: 6 },
+    { name: "Boteco do Meio", area: "São Paulo", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "Bottled Dog", area: "Itaim Bibi", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "CASA DO MEIO", area: "São Paulo", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "Curtiça", area: "Vila Madalena", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "EPHIGENIA", area: "São Paulo", type: "3 taps triplas", units: 3, capacity: 9 },
+    { name: "Groove Bar", area: "Pinheiros", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "JANELA BAR TATUAPÉ", area: "Tatuapé", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "Janela do Meio", area: "São Paulo", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "MEIO FIO", area: "São Paulo", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "Pub St. John's Irish", area: "Tatuapé", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "Santa Augusta", area: "Augusta", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "Serras Bar", area: "São Paulo", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "St. Patrick TATUAPÉ", area: "Tatuapé", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "THE BLUE PUB BOA VISTA", area: "São Paulo", type: "Tap simples", units: 1, capacity: 1 },
+    { name: "Vila Madrugada", area: "São Paulo", type: "Tap tripla", units: 1, capacity: 3 }
+  ],
+  "Maria Clarentino": [],
+  "Mani Filardi": [],
+  "Marcelo Martins": [
+    { name: "Folks RP", area: "Jardim São Luiz", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "Tatu Bola", area: "Jardim Sumaré", type: "Tap tripla", units: 1, capacity: 3 },
+    { name: "Villa Dionisio Ribeirão Preto", area: "Jardim Sumaré", type: "Tap dupla", units: 1, capacity: 2 }
+  ],
+  "Richard Cordeiro": [],
+  "Gustavo Viana": []
 };
 
 const actions = [
@@ -192,6 +235,34 @@ function scorecardRows(ba) {
   }).join("");
 }
 
+function renderTapData(ba) {
+  const houses = ba === "TODOS"
+    ? Object.entries(tapData).flatMap(([owner, items]) => items.map(item => ({ ...item, owner: owner.split(" ")[0] })))
+    : (tapData[ba] || []).map(item => ({ ...item, owner: "" }));
+  const equipment = houses.reduce((sum, item) => sum + item.units, 0);
+  const capacity = houses.reduce((sum, item) => sum + item.capacity, 0);
+
+  document.querySelector("#tap-summary").innerHTML = `
+    <div class="tap-summary-title"><span class="tap-symbol">TAP</span><div><strong>Taps ativas na base</strong><small>Estoque atual registrado no BAM</small></div></div>
+    <div class="tap-stat"><strong>${equipment}</strong><small>equipamentos</small></div>
+    <div class="tap-stat"><strong>${houses.length}</strong><small>casas</small></div>
+    <div class="tap-stat"><strong>${capacity}</strong><small>garrafas</small></div>`;
+
+  const details = document.querySelector("#tap-details");
+  document.querySelector("#tap-details-summary").textContent = houses.length
+    ? `Ver ${houses.length} ${houses.length === 1 ? "casa" : "casas"} com tap`
+    : "Nenhuma tap ativa registrada";
+  document.querySelector("#tap-house-list").innerHTML = houses.length
+    ? houses.map(item => `
+      <article class="tap-house">
+        <span class="tap-house-dot"></span>
+        <div><strong>${item.name}</strong><small>${item.owner ? `${item.owner} · ` : ""}${item.area}</small></div>
+        <span class="tap-type">${item.type}</span>
+      </article>`).join("")
+    : `<p class="tap-empty">O BAM não possui equipamento ativo registrado para esta carteira.</p>`;
+  details.open = ba !== "TODOS" && houses.length > 0;
+}
+
 function actionRows(items) {
   return items.map(item => `
     <article class="action-row">
@@ -230,6 +301,7 @@ function renderDashboard() {
   const data = metrics[ba] || pendingMetrics;
   document.querySelector("#metric-grid").innerHTML = metricCards(data);
   document.querySelector("#scorecard-grid").innerHTML = scorecardRows(ba);
+  renderTapData(ba);
   const filtered = actions.filter(item => ba === "TODOS" || item.ba === ba);
   document.querySelector("#home-actions").innerHTML = filtered.length ? actionRows(filtered) : `<div class="empty-state"><strong>Sem prioridade registrada para esta visão.</strong><span>Consulte o TO DO por BA na Master.</span></div>`;
   document.querySelector("#focus-title").textContent = ba === "TODOS" ? "Fechar o gap começando pelas contas 5/6 e 4/6." : `Priorizar as entregas de ${ba.split(" ")[0]} nesta semana.`;
