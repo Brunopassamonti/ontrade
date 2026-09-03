@@ -4,14 +4,56 @@ const metrics = {
   TODOS: [
     { label: "Base BAM", value: 205, foot: "contas SP + RJ", icon: "◎" },
     { label: "PO hoje", value: 71, foot: "meta do time: 176", icon: "✓" },
-    { label: "Gap crítico", value: 74, foot: "contas ≤ 3/6", icon: "!", critical: true },
+    { label: "Gap crítico", value: 74, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 88, foot: "36 dentro do BAM", icon: "◆" }
   ],
   "Jerry Whilem": [
     { label: "Base BAM", value: 44, foot: "carteira atual", icon: "◎" },
     { label: "PO hoje", value: 13, foot: "meta: 46", icon: "✓" },
-    { label: "Gap crítico", value: 11, foot: "contas ≤ 3/6", icon: "!", critical: true },
+    { label: "Gap crítico", value: 11, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 20, foot: "14 dentro do BAM", icon: "◆" }
+  ],
+  "Julia Gutvilen": [
+    { label: "Base BAM", value: 11, foot: "carteira atual", icon: "◎" },
+    { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
+    { label: "Gap crítico", value: 9, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco", value: 2, foot: "1 dentro do BAM", icon: "◆" }
+  ],
+  "João Pedro Marques": [
+    { label: "Base BAM", value: 46, foot: "carteira atual", icon: "◎" },
+    { label: "PO hoje", value: 39, foot: "meta: 60", icon: "✓" },
+    { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco", value: 17, foot: "12 dentro do BAM", icon: "◆" }
+  ],
+  "Maria Clarentino": [
+    { label: "Base BAM", value: 17, foot: "carteira atual", icon: "◎" },
+    { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
+    { label: "Gap crítico", value: 17, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco", value: 17, foot: "3 dentro do BAM", icon: "◆" }
+  ],
+  "Mani Filardi": [
+    { label: "Base BAM", value: 35, foot: "carteira atual", icon: "◎" },
+    { label: "PO hoje", value: 1, foot: "meta: 10", icon: "✓" },
+    { label: "Gap crítico", value: 32, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco", value: 10, foot: "3 dentro do BAM", icon: "◆" }
+  ],
+  "Marcelo Martins": [
+    { label: "Base BAM", value: 45, foot: "carteira atual", icon: "◎" },
+    { label: "PO hoje", value: 18, foot: "meta: 30", icon: "✓" },
+    { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco", value: 1, foot: "1 dentro do BAM", icon: "◆" }
+  ],
+  "Richard Cordeiro": [
+    { label: "Base BAM", value: 7, foot: "carteira atual", icon: "◎" },
+    { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
+    { label: "Gap crítico", value: 5, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco", value: 11, foot: "2 dentro do BAM", icon: "◆" }
+  ],
+  "Gustavo Viana": [
+    { label: "Base BAM", value: 0, foot: "sem contas atribuídas", icon: "◎" },
+    { label: "PO hoje", value: 0, foot: "meta pendente", icon: "✓" },
+    { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Casas foco", value: 0, foot: "0 dentro do BAM", icon: "◆" }
   ]
 };
 
