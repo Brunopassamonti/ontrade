@@ -86,6 +86,26 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
 .scorecard-progress span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg,var(--green-500),var(--orange)); }
 .scorecard-percent { color: var(--green-800); font-family: var(--display); font-size: 1rem; text-align: right; }
 .scorecard-row.pending .scorecard-percent { color: var(--warn); font-size: .78rem; }
+.tap-panel { margin-top: 18px; padding-top: 18px; border-top: 1px solid #e7e8e3; }
+.tap-summary { display: grid; grid-template-columns: minmax(220px,1.5fr) repeat(3,minmax(90px,.5fr)); gap: 10px; padding: 14px; border-radius: 11px; background: var(--green-950); color: var(--white); }
+.tap-summary-title { display: flex; align-items: center; gap: 12px; }
+.tap-summary-title strong, .tap-summary-title small, .tap-stat strong, .tap-stat small { display: block; }
+.tap-summary-title strong { font-size: .88rem; }
+.tap-summary-title small { margin-top: 3px; color: #aebdb4; font-size: .68rem; }
+.tap-symbol { width: 38px; height: 38px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 8px; background: var(--orange); color: #fff; font-family: var(--display); font-size: .85rem; font-weight: 800; letter-spacing: .04em; }
+.tap-stat { padding: 6px 10px; border-left: 1px solid rgba(255,255,255,.13); }
+.tap-stat strong { color: var(--orange); font-family: var(--display); font-size: 1.55rem; line-height: 1; }
+.tap-stat small { margin-top: 4px; color: #aebdb4; font-size: .64rem; text-transform: uppercase; letter-spacing: .05em; }
+.tap-details { margin-top: 10px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+.tap-details summary { padding: 12px 14px; color: var(--green-800); font-size: .76rem; font-weight: 800; cursor: pointer; list-style-position: inside; }
+.tap-house-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1px; padding: 0 12px 12px; background: var(--line); }
+.tap-house { min-height: 58px; display: grid; grid-template-columns: 8px minmax(0,1fr) auto; gap: 9px; align-items: center; padding: 10px 12px; background: #fff; }
+.tap-house-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+.tap-house strong, .tap-house small { display: block; }
+.tap-house strong { font-size: .76rem; line-height: 1.25; }
+.tap-house small { margin-top: 3px; color: var(--muted); font-size: .65rem; }
+.tap-type { padding: 5px 7px; border-radius: 5px; background: var(--orange-soft); color: #9f4a1c; font-size: .62rem; font-weight: 800; white-space: nowrap; }
+.tap-empty { grid-column: 1 / -1; margin: 0; padding: 18px; background: #fff; color: var(--muted); font-size: .78rem; }
 .scorecard-note { margin: 13px 0 0; color: var(--muted); font-size: .7rem; line-height: 1.45; }
 .focus-card { margin-top: 18px; min-height: 128px; display: grid; grid-template-columns: minmax(0,1.5fr) minmax(300px,1fr); gap: 28px; align-items: center; padding: 24px 26px; color: var(--white); border-radius: 14px; background: linear-gradient(110deg,var(--green-900),var(--green-800)); box-shadow: var(--shadow); }
 .focus-card h2 { max-width: 700px; font-size: clamp(1.65rem,2.4vw,2.25rem); }
@@ -187,6 +207,13 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   .scorecard-result span { font-size: .67rem; }
   .scorecard-percent { font-size: .75rem; }
   .scorecard-row.pending .scorecard-percent { font-size: .72rem; }
+  .tap-summary { grid-template-columns: repeat(3,1fr); gap: 8px; padding: 12px; }
+  .tap-summary-title { grid-column: 1 / -1; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.13); }
+  .tap-stat { padding: 4px 7px; border-left: 0; }
+  .tap-stat strong { font-size: 1.4rem; }
+  .tap-house-list { grid-template-columns: 1fr; }
+  .tap-house { grid-template-columns: 8px minmax(0,1fr); }
+  .tap-type { grid-column: 2; width: fit-content; }
   .scorecard-note { font-size: .74rem; }
   .focus-card { grid-template-columns: 1fr; gap: 17px; margin-top: 10px; padding: 19px; border-radius: 12px; }
   .focus-card h2 { font-size: 1.55rem; }
