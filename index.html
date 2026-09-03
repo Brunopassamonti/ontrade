@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#081b12" />
+    <meta name="description" content="Portal operacional do time Jägermeister SP–RJ." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Jägermeister On-Trade" />
+    <meta property="og:description" content="Metas, ações, registros e materiais do time SP + RJ." />
+    <meta property="og:url" content="https://brunopassamonti.github.io/ontrade/" />
+    <meta property="og:image" content="https://brunopassamonti.github.io/ontrade/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Jägermeister On-Trade — Time SP + RJ" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jägermeister On-Trade" />
+    <meta name="twitter:description" content="Metas, ações, registros e materiais do time SP + RJ." />
+    <meta name="twitter:image" content="https://brunopassamonti.github.io/ontrade/og.png" />
+    <title>Jägermeister On-Trade</title>
+    <link rel="canonical" href="https://brunopassamonti.github.io/ontrade/" />
+    <link rel="icon" type="image/png" href="./assets/app-icon.png" />
+    <link rel="apple-touch-icon" href="./assets/app-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegação principal">
+        <a class="brand" href="#inicio" aria-label="Jägermeister Time SP–RJ - Início">
+          <img class="brand-logo" src="./assets/jagermeister-logo.png" alt="Jägermeister" />
+        </a>
+
+        <nav class="desktop-nav">
+          <button class="nav-item active" data-view="inicio"><span>⌂</span> Início</button>
+          <button class="nav-item" data-view="acoes"><span>✓</span> Ações</button>
+          <button class="nav-item" data-view="registrar"><span>＋</span> Registrar</button>
+          <button class="nav-item" data-view="bases"><span>▦</span> Bases</button>
+          <button class="nav-item" data-view="materiais"><span>◫</span> Materiais</button>
+        </nav>
+
+        <a class="sidebar-master" href="https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_dNCl2a4TlsOukeVZdBjg/edit#gid=1611332193" target="_blank" rel="noreferrer">
+          <span>ABRIR MASTER</span>
+          <strong>↗</strong>
+        </a>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">JÄGERMEISTER · TIME SP–RJ · Q3 2026</p>
+            <h1 id="view-title">Visão do time</h1>
+          </div>
+          <label class="ba-filter">
+            <span>VISÃO</span>
+            <select id="ba-select" aria-label="Selecionar Brand Ambassador">
+              <option value="TODOS">Todos os BAs</option>
+              <option value="Jerry Whilem">Jerry Whilem</option>
+              <option value="Julia Gutvilen">Julia Gutvilen</option>
+              <option value="João Pedro Marques">João Pedro Marques</option>
+              <option value="Maria Clarentino">Maria Clarentino</option>
+              <option value="Mani Filardi">Mani Filardi</option>
+              <option value="Marcelo Martins">Marcelo Martins</option>
+              <option value="Richard Cordeiro">Richard Cordeiro</option>
+              <option value="Gustavo Viana">Gustavo Viana</option>
+            </select>
+          </label>
+        </header>
+
+        <section class="view active" id="inicio" data-title="Visão do time">
+          <div class="snapshot-note">
+            <span class="live-dot"></span>
+            Snapshot da Master · 02/09/2026
+            <a href="https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_dNCl2a4TlsOukeVZdBjg/edit#gid=1611332193" target="_blank" rel="noreferrer">ver dados atuais ↗</a>
+          </div>
+
+          <div class="metric-grid" id="metric-grid"></div>
+
+          <section class="scorecard-card" aria-labelledby="scorecard-title">
+            <div class="scorecard-heading">
+              <div>
+                <p class="eyebrow orange">SCORECARD DO QUARTER</p>
+                <h2 id="scorecard-title">Metas Q3 2026</h2>
+                <p id="scorecard-owner">Visão consolidada do time</p>
+              </div>
+              <a href="https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_dNCl2a4TlsOukeVZdBjg/edit#gid=2125828706" target="_blank" rel="noreferrer">Ver scorecard completo ↗</a>
+            </div>
+            <div class="scorecard-grid" id="scorecard-grid"></div>
+            <p class="scorecard-note">PO e cobertura vêm do BAM | LATEST. Cardápios e treinamentos contam apenas entregas novas do Q3 concluídas em 02 | REGISTROS; estão “A apurar” até o histórico de julho e agosto ser conciliado. Contratos seguem o controle oficial.</p>
+          </section>
+
+          <section class="focus-card">
+            <div>
+              <p class="eyebrow orange">FOCO DA SEMANA</p>
+              <h2 id="focus-title">Fechar o gap começando pelas contas 5/6 e 4/6.</h2>
+            </div>
+            <div class="focus-targets" id="focus-targets"></div>
+          </section>
+
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">PRIORIDADE</p>
+              <h2>Fazer agora</h2>
+            </div>
+            <button class="text-button" data-view="acoes">Ver todas <span>→</span></button>
+          </div>
+          <div class="action-list compact" id="home-actions"></div>
+
+          <div class="section-heading quick-heading">
+            <div>
+              <p class="eyebrow">ACESSO RÁPIDO</p>
+              <h2>Registrar ou solicitar</h2>
+            </div>
+          </div>
+          <div class="quick-grid">
+            <a class="quick-card accent" href="https://docs.google.com/forms/d/e/1FAIpQLSf81YoXVs_Dfj7vdyCvICGzBhWwne7PfQewtZL947MbVUsZrw/viewform" target="_blank" rel="noreferrer">
+              <span class="quick-icon">＋</span><strong>Report mensal</strong><small>Resultados e entregas</small>
+            </a>
+            <a class="quick-card" href="https://docs.google.com/forms/d/1dc9DMEI-nnbvY6aPB3UF0ayygIooBH0z4q47jPg14VM/viewform" target="_blank" rel="noreferrer">
+              <span class="quick-icon">✎</span><strong>Incluir contrato</strong><small>Preencher novo contrato ou acordo</small>
+            </a>
+            <a class="quick-card" href="https://forms.gle/VVTNmtGKTwC4pchk6" target="_blank" rel="noreferrer">
+              <span class="quick-icon">▣</span><strong>Materiais e POS</strong><small>Produção de arte e peças</small>
+            </a>
+            <button class="quick-card" data-view="registrar">
+              <span class="quick-icon">•••</span><strong>Mais registros</strong><small>TM, comodato, cliente e logística</small>
+            </button>
+          </div>
+        </section>
+
+        <section class="view" id="acoes" data-title="Ações e TO-DOs">
+          <div class="page-intro">
+            <div><p class="eyebrow">MINHA SEMANA</p><h2>Ações e TO-DOs</h2></div>
+            <a class="outline-button" href="https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_dNCl2a4TlsOukeVZdBjg/edit#gid=598635112" target="_blank" rel="noreferrer">Abrir TO DO por BA ↗</a>
+          </div>
+          <div class="toolbar">
+            <div class="search-wrap"><span>⌕</span><input id="action-search" type="search" placeholder="Buscar cliente, rota ou ação" /></div>
+            <select id="status-filter" aria-label="Filtrar por status"><option value="todos">Todos os status</option><option value="A fazer">A fazer</option><option value="Planejada">Planejada</option></select>
+          </div>
+          <div class="action-list" id="all-actions"></div>
+          <div class="empty-state" id="actions-empty" hidden><strong>Nenhuma ação encontrada.</strong><span>Ajuste a busca ou confira a Master.</span></div>
+        </section>
+
+        <section class="view" id="registrar" data-title="Registrar e solicitar">
+          <div class="page-intro"><div><p class="eyebrow">CENTRAL OPERACIONAL</p><h2>Registrar e solicitar</h2></div></div>
+          <p class="section-copy">Use o formulário correto para manter o histórico e evitar informações soltas por mensagem.</p>
+          <div class="group-title"><span>01</span><div><strong>Resultados e clientes</strong><small>Entregas mensais e cadastro</small></div></div>
+          <div class="link-grid" id="results-links"></div>
+          <div class="group-title"><span>02</span><div><strong>Acordos e execução</strong><small>Negociações, TM e comodatos</small></div></div>
+          <div class="link-grid" id="execution-links"></div>
+          <div class="group-title"><span>03</span><div><strong>Solicitações e suporte</strong><small>Materiais, logística e pagamentos</small></div></div>
+          <div class="link-grid" id="request-links"></div>
+        </section>
+
+        <section class="view" id="bases" data-title="Bases e planilhas">
+          <div class="page-intro"><div><p class="eyebrow">FONTE OFICIAL</p><h2>Bases e planilhas</h2></div></div>
+          <p class="section-copy">Atalhos diretos para cada área da Master e para os sistemas usados em campo.</p>
+          <div class="link-grid three" id="base-links"></div>
+        </section>
+
+        <section class="view" id="materiais" data-title="Materiais e treinamentos">
+          <div class="page-intro"><div><p class="eyebrow">BIBLIOTECA BA</p><h2>Materiais e treinamentos</h2></div></div>
+          <p class="section-copy">Guias, assets, artes e manuais reunidos em um único lugar.</p>
+          <div class="group-title"><span>A</span><div><strong>Marca e imagens</strong><small>Assets oficiais</small></div></div>
+          <div class="link-grid" id="brand-links"></div>
+          <div class="group-title"><span>B</span><div><strong>Projetos e estratégias</strong><small>Apresentações e materiais comerciais</small></div></div>
+          <div class="link-grid" id="strategy-links"></div>
+          <div class="group-title"><span>C</span><div><strong>Tap Machine e processos</strong><small>Manuais e treinamentos</small></div></div>
+          <div class="link-grid" id="training-links"></div>
+        </section>
+      </main>
+
+      <nav class="mobile-nav" aria-label="Navegação mobile">
+        <button class="nav-item active" data-view="inicio"><span>⌂</span><small>Início</small></button>
+        <button class="nav-item" data-view="acoes"><span>✓</span><small>Ações</small></button>
+        <button class="nav-item center" data-view="registrar"><span>＋</span><small>Registrar</small></button>
+        <button class="nav-item" data-view="bases"><span>▦</span><small>Bases</small></button>
+        <button class="nav-item" data-view="materiais"><span>◫</span><small>Materiais</small></button>
+      </nav>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
