@@ -2,55 +2,55 @@ const MASTER = "https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_d
 
 const metrics = {
   TODOS: [
-    { label: "Base BAM", value: 220, foot: "base oficial Report (6)", icon: "◎" },
+    { label: "Base BAM", value: 560, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 72, foot: "meta do time: 176", icon: "✓" },
     { label: "Gap crítico", value: 71, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 88, foot: "36 dentro do BAM", icon: "◆" }
   ],
   "Jerry Whilem": [
-    { label: "Base BAM", value: 63, foot: "base oficial Q3", icon: "◎" },
+    { label: "Base BAM", value: 104, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 17, foot: "meta: 46", icon: "✓" },
     { label: "Gap crítico", value: 10, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 20, foot: "14 dentro do BAM", icon: "◆" }
   ],
   "Julia Gutvilen": [
-    { label: "Base BAM", value: 10, foot: "base oficial Q3", icon: "◎" },
+    { label: "Base BAM", value: 55, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
     { label: "Gap crítico", value: 7, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 2, foot: "1 dentro do BAM", icon: "◆" }
   ],
   "João Pedro Marques": [
-    { label: "Base BAM", value: 46, foot: "base oficial Q3", icon: "◎" },
+    { label: "Base BAM", value: 151, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 36, foot: "meta: 60", icon: "✓" },
     { label: "Gap crítico", value: 3, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 17, foot: "12 dentro do BAM", icon: "◆" }
   ],
   "Maria Clarentino": [
-    { label: "Base BAM", value: 17, foot: "base oficial Q3", icon: "◎" },
+    { label: "Base BAM", value: 26, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
     { label: "Gap crítico", value: 17, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 17, foot: "3 dentro do BAM", icon: "◆" }
   ],
   "Mani Filardi": [
-    { label: "Base BAM", value: 32, foot: "base oficial Q3", icon: "◎" },
+    { label: "Base BAM", value: 52, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 1, foot: "meta: 10", icon: "✓" },
     { label: "Gap crítico", value: 29, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 10, foot: "3 dentro do BAM", icon: "◆" }
   ],
   "Marcelo Martins": [
-    { label: "Base BAM", value: 45, foot: "base oficial Q3", icon: "◎" },
+    { label: "Base BAM", value: 132, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 18, foot: "meta: 30", icon: "✓" },
     { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 1, foot: "1 dentro do BAM", icon: "◆" }
   ],
   "Richard Cordeiro": [
-    { label: "Base BAM", value: 7, foot: "base oficial Q3", icon: "◎" },
+    { label: "Base BAM", value: 26, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
     { label: "Gap crítico", value: 5, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 11, foot: "2 dentro do BAM", icon: "◆" }
   ],
   "Gustavo Viana": [
-    { label: "Base BAM", value: 0, foot: "base oficial Q3", icon: "◎" },
+    { label: "Base BAM", value: 14, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta pendente", icon: "✓" },
     { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco", value: 0, foot: "0 dentro do BAM", icon: "◆" }
@@ -67,15 +67,15 @@ const pendingMetrics = [
 const scorecardLabels = ["Perfect Outlet / ON6", "Contratos foco", "Cardápios novos no Q3", "Treinamentos no Q3", "Base visitada no Q3"];
 const scorecardWeights = [30, 25, 25, 10, 10];
 const quarterScorecards = {
-  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 220], actuals: [72, 0, null, 110, 220] },
-  "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46,6,10,36,63], actuals: [17,0,null,28,63] },
-  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10,1,3,10,10], actuals: [0,0,null,1,10] },
-  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60,8,10,36,46], actuals: [36,0,null,42,46] },
-  "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10,2,3,10,17], actuals: [0,0,null,0,17] },
-  "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10,2,3,10,32], actuals: [1,0,null,1,32] },
-  "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30,8,10,36,45], actuals: [18,0,null,38,45] },
-  "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10,1,3,10,7], actuals: [0,0,null,0,7] },
-  "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null,null,null,null,null], actuals: [0,0,null,0,null] }
+  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 560], actuals: [72, 0, null, 110, 221] },
+  "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46,6,10,36,104], actuals: [17,0,null,28,48] },
+  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10,1,3,10,55], actuals: [0,0,null,1,14] },
+  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60,8,10,36,151], actuals: [36,0,null,42,51] },
+  "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10,2,3,10,26], actuals: [0,0,null,0,18] },
+  "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10,2,3,10,52], actuals: [1,0,null,1,37] },
+  "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30,8,10,36,132], actuals: [18,0,null,38,45] },
+  "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10,1,3,10,26], actuals: [0,0,null,0,8] },
+  "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null,null,null,null,14], actuals: [0,0,null,0,0] }
 };
 
 const tapData = {
