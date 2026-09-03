@@ -681,3 +681,158 @@ window.PORTAL_DATA = {
   }
 };
 
+window.BA_INSIGHTS = {
+  "TODOS": {
+    "observations": [
+      "19 cadastros de BH aparecem no Report (6) sob o Jerry, mas não pertencem à carteira oficial; foram retirados dos KPIs.",
+      "23 nomes de casas aparecem em mais de uma carteira no B.A Management e precisam de decisão de owner.",
+      "353 dos 560 clientes da base oficial ainda não têm visita confirmada no Q3."
+    ],
+    "todos": [
+      "Corrigir ou desativar no BAM os cadastros de BH associados ao Jerry.",
+      "Validar os 23 nomes duplicados antes de qualquer troca de BA.",
+      "Priorizar cobertura dos clientes não visitados por região e Hotzone."
+    ],
+    "suggestions": [
+      "Gerar uma lista semanal de exceções entre B.A Management e Report.",
+      "Montar rotas agrupando não visitados, Hotzones e casas com tap.",
+      "Contabilizar cardápio e ativação somente após foto validada."
+    ]
+  },
+  "Jerry Whilem": {
+    "observations": [
+      "19 casas de BH aparecem sob o Jerry no Report (6); 8 delas tinham tap ativa e foram excluídas do scorecard.",
+      "9 nomes estão duplicados entre as carteiras de Jerry e Julia.",
+      "60 de 104 clientes ainda não têm visita confirmada no Q3."
+    ],
+    "todos": [
+      "Ajustar no BAM o owner dos 19 cadastros de BH.",
+      "Definir o owner dos 9 nomes duplicados com Julia, sem transferência automática.",
+      "Planejar a cobertura dos 60 clientes ainda não visitados."
+    ],
+    "suggestions": [
+      "Começar pelas 7 casas com tap ativa dentro da carteira oficial.",
+      "Agrupar a rota por Botafogo, Lagoa, Centro/Lapa e Zona Sul.",
+      "Usar Julia como suporte operacional sem alterar o owner da casa."
+    ]
+  },
+  "Julia Gutvilen": {
+    "observations": [
+      "9 nomes estão duplicados entre as carteiras de Julia e Jerry.",
+      "44 de 55 clientes ainda não têm visita confirmada no Q3.",
+      "Não há tap ativa confirmada na carteira oficial atual."
+    ],
+    "todos": [
+      "Validar com Jerry o owner dos 9 nomes duplicados.",
+      "Completar a cobertura dos clientes sem visita.",
+      "Atualizar região e papel territorial das casas ainda sem classificação."
+    ],
+    "suggestions": [
+      "Priorizar Barra/Olegário e Botafogo em rotas fechadas.",
+      "Separar claramente suporte ao Jerry de ownership no BAM.",
+      "Mapear oportunidades de Castelo dentro da carteira."
+    ]
+  },
+  "João Pedro Marques": {
+    "observations": [
+      "13 nomes estão duplicados no B.A Management: 11 com Mani e 2 com Maria.",
+      "104 de 151 clientes ainda não têm visita confirmada no Q3.",
+      "25 taps estão registradas em 20 casas da carteira, incluindo nomes com possível duplicidade."
+    ],
+    "todos": [
+      "Decidir o owner das casas duplicadas antes de alterar o BAM.",
+      "Revisar primeiro as duplicidades de Pinheiros e Centro.",
+      "Criar plano de cobertura para os 104 clientes não visitados."
+    ],
+    "suggestions": [
+      "Priorizar Pinheiros, Barra Funda, Tatuapé e Baixo Augusta.",
+      "Usar casas com tap como âncoras das rotas.",
+      "Conciliar João e Mani por rua, mantendo um único owner por cliente."
+    ]
+  },
+  "Maria Clarentino": {
+    "observations": [
+      "Cachaçaria Mané que Mé e Santa Augusta aparecem também na carteira do João.",
+      "9 de 26 clientes ainda não têm visita confirmada no Q3.",
+      "Não há tap ativa confirmada na carteira oficial atual."
+    ],
+    "todos": [
+      "Definir com João o owner das duas casas duplicadas.",
+      "Completar as 9 visitas pendentes.",
+      "Revisar classificação territorial das casas do Centro."
+    ],
+    "suggestions": [
+      "Concentrar a rota em Centro/República e Baixo Augusta.",
+      "Buscar cardápios de impacto em contas de maior visibilidade.",
+      "Mapear um possível Castelo para a carteira."
+    ]
+  },
+  "Mani Filardi": {
+    "observations": [
+      "11 nomes aparecem também na carteira do João.",
+      "17 de 52 clientes ainda não têm visita confirmada no Q3.",
+      "Não há tap ativa confirmada na carteira oficial atual."
+    ],
+    "todos": [
+      "Decidir o owner das 11 casas duplicadas com João.",
+      "Completar as 17 visitas pendentes.",
+      "Consolidar as regiões ainda descritas de formas diferentes na Master."
+    ],
+    "suggestions": [
+      "Fechar rotas por Pinheiros, Vila Madalena e ABC.",
+      "Usar Guaicuí e Beco do Batman como focos de densidade.",
+      "Mapear um Castelo ou key account âncora."
+    ]
+  },
+  "Marcelo Martins": {
+    "observations": [
+      "Tatu Bola aparece também na carteira do Richard.",
+      "87 de 132 clientes ainda não têm visita confirmada no Q3.",
+      "Há 2 taps ativas confirmadas em 2 casas da carteira."
+    ],
+    "todos": [
+      "Confirmar qual unidade Tatu Bola pertence a Marcelo e qual pertence a Richard.",
+      "Completar a cobertura da base por clusters de Ribeirão Preto.",
+      "Padronizar bairros e regiões na Master."
+    ],
+    "suggestions": [
+      "Começar pelas casas com tap e pelos clientes de maior prioridade.",
+      "Agrupar Centro, Jardim Sumaré e Campos Elíseos.",
+      "Criar metas semanais de cobertura para reduzir o saldo de 87 casas."
+    ]
+  },
+  "Richard Cordeiro": {
+    "observations": [
+      "Tatu Bola aparece também na carteira do Marcelo; a unidade precisa ser identificada.",
+      "18 de 26 clientes ainda não têm visita confirmada no Q3.",
+      "A única tap registrada está em Tatu Bola e depende dessa confirmação de unidade/owner."
+    ],
+    "todos": [
+      "Identificar endereço e owner correto da unidade Tatu Bola.",
+      "Completar as 18 visitas pendentes.",
+      "Revisar Hotzones de Campinas na Master."
+    ],
+    "suggestions": [
+      "Priorizar Cambuí e Taquaral.",
+      "Validar a tap de Tatu Bola antes de usar o dado como ação comercial.",
+      "Mapear key account ou Castelo regional."
+    ]
+  },
+  "Gustavo Viana": {
+    "observations": [
+      "Nenhum dos 14 clientes possui visita confirmada no Q3.",
+      "A praça e os Hotzones ainda não estão consolidados na Master.",
+      "Não há tap ativa confirmada na carteira oficial atual."
+    ],
+    "todos": [
+      "Confirmar praça, área de atuação e carteira ativa.",
+      "Realizar o baseline dos 14 clientes no BAM.",
+      "Definir Hotzones, pilares e prioridades."
+    ],
+    "suggestions": [
+      "Começar por uma rota de diagnóstico completa.",
+      "Classificar os clientes por prioridade e energia.",
+      "Só definir metas operacionais após validar a base."
+    ]
+  }
+};
