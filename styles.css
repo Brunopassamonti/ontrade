@@ -46,10 +46,11 @@ h1, h2, h3, p { margin-top: 0; }
 h1, h2 { font-family: var(--display); text-transform: uppercase; letter-spacing: .012em; }
 h1 { margin-bottom: 0; font-size: clamp(2rem, 3vw, 2.8rem); line-height: .95; }
 h2 { margin-bottom: 0; font-size: clamp(1.7rem, 2.5vw, 2.35rem); line-height: 1; }
-.ba-filter { min-width: 225px; }
-.ba-filter span { display: block; margin-bottom: 6px; color: var(--muted); font-size: .68rem; font-weight: 800; letter-spacing: .14em; }
+.ba-filter { min-width: 280px; padding: 9px 10px 10px; border: 1px solid rgba(255,255,255,.24); border-radius: 12px; background: var(--green-950); box-shadow: 0 8px 20px rgba(0,0,0,.12); }
+.ba-filter span { display: block; margin: 0 0 6px 3px; color: #fff; font-size: .66rem; font-weight: 800; letter-spacing: .1em; }
 select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); }
-.ba-filter select { width: 100%; padding: 0 38px 0 13px; font-weight: 700; }
+.ba-filter select { width: 100%; min-height: 48px; padding: 0 38px 0 13px; border: 2px solid var(--orange); background-color: #fff; color: var(--green-950); font-size: .95rem; font-weight: 700; cursor: pointer; }
+.ba-filter select:focus-visible { outline: 3px solid rgba(241,90,36,.28); outline-offset: 2px; }
 .view { display: none; padding-top: 26px; animation: enter .18s ease-out; }
 .view.active { display: block; }
 @keyframes enter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
@@ -156,13 +157,13 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   body { background: var(--paper); }
   .sidebar { display: none; }
   main { margin-left: 0; padding: 0 14px calc(96px + env(safe-area-inset-bottom)); overflow-x: hidden; }
-  .topbar { position: sticky; top: 0; z-index: 10; min-height: 92px; height: auto; margin: 0 -14px; padding: 14px; background: rgba(251,250,246,.97); backdrop-filter: blur(12px); }
+  .topbar { position: sticky; top: 0; z-index: 10; flex-wrap: wrap; min-height: 142px; height: auto; margin: 0 -14px; padding: 14px; background: rgba(251,250,246,.97); backdrop-filter: blur(12px); }
   .topbar > div { min-width: 0; }
   .topbar .eyebrow { display: block; max-width: 170px; margin-bottom: 5px; font-size: .6rem; line-height: 1.25; }
   h1 { font-size: 1.55rem; overflow-wrap: anywhere; }
-  .ba-filter { min-width: 142px; max-width: 46%; }
-  .ba-filter span { display: none; }
-  .ba-filter select { min-height: 44px; padding-left: 10px; font-size: .8rem; }
+  .ba-filter { width: 100%; min-width: 0; max-width: none; padding: 8px 9px 9px; }
+  .ba-filter span { display: block; font-size: .62rem; }
+  .ba-filter select { min-height: 48px; padding-left: 12px; font-size: .95rem; }
   .view { padding-top: 16px; }
   .snapshot-note { font-size: .7rem; }
   .snapshot-note a { font-size: 0; }
@@ -221,7 +222,7 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   .topbar { margin: 0 -11px; padding: 12px 11px; }
   .topbar .eyebrow { max-width: 142px; font-size: .56rem; }
   h1 { font-size: 1.4rem; }
-  .ba-filter { min-width: 132px; }
+  .ba-filter { min-width: 0; }
   .metric-label { letter-spacing: .04em; }
   .metric-foot { display: none; }
   .metric-card { min-height: 94px; }
