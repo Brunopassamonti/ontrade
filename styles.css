@@ -107,6 +107,21 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
 .tap-type { padding: 5px 7px; border-radius: 5px; background: var(--orange-soft); color: #9f4a1c; font-size: .62rem; font-weight: 800; white-space: nowrap; }
 .tap-empty { grid-column: 1 / -1; margin: 0; padding: 18px; background: #fff; color: var(--muted); font-size: .78rem; }
 .scorecard-note { margin: 13px 0 0; color: var(--muted); font-size: .7rem; line-height: 1.45; }
+.insight-card { margin-top: 18px; padding: 22px 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+.insight-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.insight-heading h2 { font-size: 1.7rem; }
+.insight-heading > span { padding: 6px 8px; border-radius: 6px; background: #e8eee9; color: var(--green-800); font-size: .68rem; font-weight: 800; }
+.insight-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+.insight-grid article { padding: 15px; border: 1px solid #e5e7e2; border-radius: 10px; background: #fff; }
+.insight-label { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.insight-label > span { width: 25px; height: 25px; display: grid; place-items: center; border-radius: 6px; color: white; font-size: .72rem; font-weight: 800; }
+.insight-label strong { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
+.insight-label.warning > span { background: var(--warn); }
+.insight-label.todo > span { background: var(--green-500); }
+.insight-label.idea > span { background: var(--orange); }
+.insight-grid ul { margin: 0; padding-left: 18px; }
+.insight-grid li { color: var(--muted); font-size: .73rem; line-height: 1.45; }
+.insight-grid li + li { margin-top: 7px; }
 .focus-card { margin-top: 18px; min-height: 128px; display: grid; grid-template-columns: minmax(0,1.5fr) minmax(300px,1fr); gap: 28px; align-items: center; padding: 24px 26px; color: var(--white); border-radius: 14px; background: linear-gradient(110deg,var(--green-900),var(--green-800)); box-shadow: var(--shadow); }
 .focus-card h2 { max-width: 700px; font-size: clamp(1.65rem,2.4vw,2.25rem); }
 .focus-targets { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
@@ -201,6 +216,7 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   .link-grid.three { grid-template-columns: repeat(2,1fr); }
   .action-row { grid-template-columns: minmax(160px,1fr) minmax(220px,1.7fr) 120px 25px; }
   .action-row .status { display: none; }
+  .insight-grid { grid-template-columns: 1fr; }
   .pillar-grid { grid-template-columns: repeat(2,1fr); }
   .territory-layout { grid-template-columns: 1fr; }
 }
@@ -247,6 +263,12 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   .tap-house { grid-template-columns: 8px minmax(0,1fr); }
   .tap-type { grid-column: 2; width: fit-content; }
   .scorecard-note { font-size: .74rem; }
+  .insight-card { margin-top: 10px; padding: 17px 14px; }
+  .insight-heading { align-items: flex-start; }
+  .insight-heading h2 { font-size: 1.45rem; }
+  .insight-grid { gap: 8px; }
+  .insight-grid article { padding: 13px; }
+  .insight-grid li { font-size: .76rem; }
   .focus-card { grid-template-columns: 1fr; gap: 17px; margin-top: 10px; padding: 19px; border-radius: 12px; }
   .focus-card h2 { font-size: 1.55rem; }
   .target-pill { padding: 9px 10px; }
