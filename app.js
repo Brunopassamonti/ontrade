@@ -339,6 +339,7 @@ const legacyTapData = {
 
 const tapData = window.PORTAL_DATA?.tapData || legacyTapData;
 const territoryProfiles = window.PORTAL_DATA?.territoryProfiles || {};
+const baInsights = window.BA_INSIGHTS || {};
 
 const actions = [
   { ba: "Jerry Whilem", short: "Jerry", route: "Botafogo", client: "Macuna", action: "Executar treinamento e reauditar", kpi: "ON6 + Treinamento", impact: "+1 PO +1 treinamento", deadline: "Esta semana", status: "A fazer" },
@@ -550,6 +551,16 @@ function renderTerritory(ba) {
   setTerritoryMap(initial.query, initial.label);
 }
 
+function renderBaseInsights(ba) {
+  const insight = baInsights[ba] || baInsights.TODOS;
+  const firstName = ba === "TODOS" ? "Visão do time" : ba.split(" ")[0];
+  document.querySelector("#insight-owner").textContent = firstName;
+  const list = items => items.map(item => `<li>${item}</li>`).join("");
+  document.querySelector("#base-observations").innerHTML = list(insight.observations);
+  document.querySelector("#base-todos").innerHTML = list(insight.todos);
+  document.querySelector("#base-suggestions").innerHTML = list(insight.suggestions);
+}
+
 function renderDashboard() {
   const ba = baSelect.value;
   const data = metrics[ba] || pendingMetrics;
@@ -557,6 +568,7 @@ function renderDashboard() {
   document.querySelector("#scorecard-grid").innerHTML = scorecardRows(ba);
   renderTapData(ba);
   renderTerritory(ba);
+  renderBaseInsights(ba);
   const filtered = actions.filter(item => ba === "TODOS" || item.ba === ba);
   document.querySelector("#home-actions").innerHTML = filtered.length ? actionRows(filtered) : `<div class="empty-state"><strong>Sem prioridade registrada para esta visão.</strong><span>Consulte o TO DO por BA na Master.</span></div>`;
   document.querySelector("#focus-title").textContent = ba === "TODOS" ? "Fechar o gap começando pelas contas 5/6 e 4/6." : `Priorizar as entregas de ${ba.split(" ")[0]} nesta semana.`;
