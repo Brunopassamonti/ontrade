@@ -187,6 +187,39 @@
               <iframe id="territory-map" title="Mapa regional do Brand Ambassador" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </section>
           </div>
+
+          <section class="census-card" id="hotzone-census-card">
+            <div class="census-heading">
+              <div>
+                <p class="eyebrow orange">HOTZONE INTELLIGENCE</p>
+                <h2>Censo digital da região</h2>
+                <p>Presença Jäger, implantação/expansão e oportunidades de prospecção mapeadas online.</p>
+              </div>
+              <a id="open-hotzone-census" href="https://brunopassamonti.github.io/rio-ontrade-portal/hotzone-botafogo/" target="_blank" rel="noreferrer">Abrir mapa completo ↗</a>
+            </div>
+            <div class="census-controls">
+              <div class="census-tabs" id="hotzone-census-tabs"></div>
+              <label class="census-filter">
+                <span>FILTRAR PINS</span>
+                <select id="hotzone-stage-filter" aria-label="Filtrar estágio dos clientes da hotzone">
+                  <option value="all">Todos os pins</option>
+                  <option value="jager">Clientes Jäger ativos</option>
+                  <option value="expand">Implantação / expansão</option>
+                  <option value="prospectA">Prospects prioritários</option>
+                  <option value="prospectB">Prospects mapeados</option>
+                  <option value="benchmark">Benchmark / cena</option>
+                  <option value="nofit">Sem fit / monitorar</option>
+                </select>
+              </label>
+            </div>
+            <iframe id="hotzone-census-map" title="Censo digital da hotzone" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="census-empty" id="hotzone-census-empty" hidden>
+              <strong>Censo online ainda não publicado para esta carteira.</strong>
+              <span>A estrutura já está pronta para receber as próximas hotzones.</span>
+            </div>
+            <p class="census-note">Varredura online → classificação → pinagem → prioridade → rota → validação de campo. O mapa digital gera hipótese; execução e disponibilidade são confirmadas presencialmente.</p>
+          </section>
+
           <p class="territory-note">Pilares e regiões usam a leitura estratégica da Master. Onde ainda não há Castelo ou Hotzone validado, o portal sinaliza “a mapear” em vez de criar uma classificação.</p>
         </section>
 
