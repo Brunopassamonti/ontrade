@@ -341,6 +341,13 @@ const tapData = window.PORTAL_DATA?.tapData || legacyTapData;
 const territoryProfiles = window.PORTAL_DATA?.territoryProfiles || {};
 const baInsights = window.BA_INSIGHTS || {};
 
+const BOTAFOGO_CENSUS = "https://brunopassamonti.github.io/rio-ontrade-portal/hotzone-botafogo/";
+const hotzoneCensus = {
+  TODOS: [{ label: "Botafogo / Humaitá", url: BOTAFOGO_CENSUS }],
+  "Jerry Whilem": [{ label: "Botafogo / Humaitá", url: BOTAFOGO_CENSUS }],
+  "Julia Gutvilen": [{ label: "Botafogo / Humaitá", url: BOTAFOGO_CENSUS }]
+};
+
 const actions = [
   { ba: "Jerry Whilem", short: "Jerry", route: "Botafogo", client: "Macuna", action: "Executar treinamento e reauditar", kpi: "ON6 + Treinamento", impact: "+1 PO +1 treinamento", deadline: "Esta semana", status: "A fazer" },
   { ba: "Jerry Whilem", short: "Jerry", route: "Lagoa", client: "Aldeia + Caza Lagoa", action: "Resolver ativação e preço nas duas contas na mesma rota", kpi: "ON6", impact: "Até +2 PO", deadline: "1–2 semanas", status: "A fazer" },
@@ -528,6 +535,56 @@ function setTerritoryMap(query, activeLabel) {
   document.querySelectorAll("#map-tabs button").forEach(button => button.classList.toggle("active", button.textContent === activeLabel));
 }
 
+function setHotzoneCensus(area, filter = "all") {
+  const iframe = document.querySelector("#hotzone-census-map");
+  const open = document.querySelector("#open-hotzone-census");
+  if (!area || !iframe || !open) return;
+  const separator = area.url.includes("?") ? "&" : "?";
+  iframe.src = `${area.url}${separator}embed=1&filter=${encodeURIComponent(filter)}`;
+  open.href = `${area.url}${separator}filter=${encodeURIComponent(filter)}`;
+  document.querySelectorAll("#hotzone-census-tabs button").forEach(button => {
+    button.classList.toggle("active", button.dataset.label === area.label);
+  });
+}
+
+function renderHotzoneCensus(ba) {
+  const areas = hotzoneCensus[ba] || [];
+  const tabs = document.querySelector("#hotzone-census-tabs");
+  const filter = document.querySelector("#hotzone-stage-filter");
+  const iframe = document.querySelector("#hotzone-census-map");
+  const empty = document.querySelector("#hotzone-census-empty");
+  const open = document.querySelector("#open-hotzone-census");
+  if (!tabs || !filter || !iframe || !empty || !open) return;
+
+  if (!areas.length) {
+    tabs.innerHTML = "";
+    filter.disabled = true;
+    iframe.hidden = true;
+    open.hidden = true;
+    empty.hidden = false;
+    return;
+  }
+
+  filter.disabled = false;
+  iframe.hidden = false;
+  open.hidden = false;
+  empty.hidden = true;
+  filter.value = "all";
+  tabs.innerHTML = areas.map((area, index) =>
+    `<button type="button" class="${index === 0 ? "active" : ""}" data-label="${area.label}">${area.label}</button>`
+  ).join("");
+
+  let activeArea = areas[0];
+  tabs.querySelectorAll("button").forEach((button, index) => {
+    button.addEventListener("click", () => {
+      activeArea = areas[index];
+      setHotzoneCensus(activeArea, filter.value);
+    });
+  });
+  filter.onchange = () => setHotzoneCensus(activeArea, filter.value);
+  setHotzoneCensus(activeArea, "all");
+}
+
 function renderTerritory(ba) {
   const profile = territoryProfiles[ba] || territoryProfiles.TODOS;
   const firstName = ba === "TODOS" ? "time" : ba.split(" ")[0];
@@ -568,6 +625,7 @@ function renderDashboard() {
   document.querySelector("#scorecard-grid").innerHTML = scorecardRows(ba);
   renderTapData(ba);
   renderTerritory(ba);
+  renderHotzoneCensus(ba);
   renderBaseInsights(ba);
   const filtered = actions.filter(item => ba === "TODOS" || item.ba === ba);
   document.querySelector("#home-actions").innerHTML = filtered.length ? actionRows(filtered) : `<div class="empty-state"><strong>Sem prioridade registrada para esta visão.</strong><span>Consulte o TO DO por BA na Master.</span></div>`;
