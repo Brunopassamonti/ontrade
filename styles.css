@@ -210,6 +210,24 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
 #territory-map { width: 100%; height: 390px; display: block; border: 0; border-radius: 10px; background: #e8eee9; }
 .territory-note { margin: 12px 2px 0; color: var(--muted); font-size: .7rem; line-height: 1.45; }
 
+.census-card { margin-top: 16px; padding: 21px; border: 1px solid var(--line); border-radius: 13px; background: var(--paper); }
+.census-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.census-heading h2 { font-size: 1.65rem; }
+.census-heading p:not(.eyebrow) { max-width: 660px; margin: 6px 0 0; color: var(--muted); font-size: .78rem; line-height: 1.45; }
+.census-heading a { color: var(--green-800); font-size: .7rem; font-weight: 800; white-space: nowrap; }
+.census-controls { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin: 16px 0 10px; }
+.census-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.census-tabs button { padding: 8px 10px; border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--green-800); font-size: .7rem; font-weight: 800; cursor: pointer; }
+.census-tabs button.active { border-color: var(--orange); background: var(--orange-soft); color: #9f4a1c; }
+.census-filter { min-width: 230px; }
+.census-filter span { display: block; margin-bottom: 5px; color: var(--muted); font-size: .6rem; font-weight: 800; letter-spacing: .06em; }
+.census-filter select { width: 100%; min-height: 38px; padding: 0 34px 0 10px; border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--ink); font: inherit; font-size: .72rem; font-weight: 700; }
+#hotzone-census-map { width: 100%; height: 500px; display: block; border: 0; border-radius: 10px; background: #e8eee9; }
+.census-empty { padding: 38px 20px; border: 1px dashed #aeb8b1; border-radius: 10px; text-align: center; color: var(--muted); }
+.census-empty strong, .census-empty span { display: block; }
+.census-empty strong { margin-bottom: 6px; color: var(--ink); }
+.census-note { margin: 10px 2px 0; color: var(--muted); font-size: .68rem; line-height: 1.45; }
+
 @media (max-width: 1050px) {
   .metric-grid { grid-template-columns: repeat(2,1fr); }
   .quick-grid { grid-template-columns: repeat(2,1fr); }
@@ -295,6 +313,12 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   .pillar-card > span { width: 29px; height: 29px; font-size: .76rem; }
   .territory-card, .map-card { padding: 15px; }
   #territory-map { height: 360px; }
+  .census-card { padding: 15px; }
+  .census-heading { display: grid; gap: 9px; }
+  .census-heading a { width: fit-content; }
+  .census-controls { display: grid; grid-template-columns: 1fr; align-items: stretch; }
+  .census-filter { min-width: 0; }
+  #hotzone-census-map { height: 430px; }
   .mobile-nav { position: fixed; z-index: 30; inset: auto 0 0; min-height: 76px; display: grid; grid-template-columns: repeat(6,1fr); align-items: end; padding: 7px 5px max(9px,env(safe-area-inset-bottom)); background: var(--green-950); color: #afbeb5; box-shadow: 0 -6px 20px rgba(0,0,0,.15); }
   .mobile-nav .nav-item { min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 8px; }
   .mobile-nav .nav-item span { font-size: 1.2rem; }
