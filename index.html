@@ -37,6 +37,7 @@
         <nav class="desktop-nav">
           <button class="nav-item active" data-view="inicio"><span>⌂</span> Início</button>
           <button class="nav-item" data-view="acoes"><span>✓</span> Ações</button>
+          <button class="nav-item" data-view="territorio"><span>⌖</span> Território</button>
           <button class="nav-item" data-view="registrar"><span>＋</span> Registrar</button>
           <button class="nav-item" data-view="bases"><span>▦</span> Bases</button>
           <button class="nav-item" data-view="materiais"><span>◫</span> Materiais</button>
@@ -55,7 +56,7 @@
             <h1 id="view-title">Visão do time</h1>
           </div>
           <label class="ba-filter">
-            <span>SELECIONE SEU NOME</span>
+            <span>1 · SELECIONE SEU NOME</span>
             <select id="ba-select" aria-label="Selecionar Brand Ambassador">
               <option value="TODOS">Visão geral · Todos os BAs</option>
               <option value="Jerry Whilem">Jerry Whilem</option>
@@ -96,7 +97,7 @@
                 <div class="tap-house-list" id="tap-house-list"></div>
               </details>
             </div>
-            <p class="scorecard-note">A base total e o BA de cada cliente vêm do B.A Management (On Trade + Enabled), sem transferir casas entre os BAs. A cobertura compara os nomes únicos dessa base com as visitas confirmadas no Report (6) desde 01/07. Treinamentos contam “Training = Yes” no Q3; taps mostram os equipamentos ativos do registro mais recente. Cardápios novos permanecem “A apurar” e contratos seguem o controle oficial.</p>
+            <p class="scorecard-note">A base total e o BA de cada cliente vêm do B.A Management (On Trade + Enabled), sem transferir casas entre os BAs. A cobertura compara os nomes únicos dessa base com as visitas confirmadas no Report (6) desde 01/07. Treinamentos contam “Training = Yes” no Q3; taps mostram os equipamentos ativos do registro mais recente. Cardápio de impacto e ativação de consumo entram após validação da foto; contratos seguem o controle oficial.</p>
           </section>
 
           <section class="focus-card">
@@ -132,6 +133,9 @@
             <a class="quick-card" href="https://forms.gle/VVTNmtGKTwC4pchk6" target="_blank" rel="noreferrer">
               <span class="quick-icon">▣</span><strong>Materiais e POS</strong><small>Produção de arte e peças</small>
             </a>
+            <a class="quick-card accent" href="https://docs.google.com/spreadsheets/d/1DQxE4cigFHxF61TdY180vVIelzeRaw0g5J4ykZ_muxY/edit" target="_blank" rel="noreferrer">
+              <span class="quick-icon">A</span><strong>Registrar ativação</strong><small>Cardápio, consumo e foto</small>
+            </a>
             <button class="quick-card" data-view="registrar">
               <span class="quick-icon">•••</span><strong>Mais registros</strong><small>TM, comodato, cliente e logística</small>
             </button>
@@ -149,6 +153,29 @@
           </div>
           <div class="action-list" id="all-actions"></div>
           <div class="empty-state" id="actions-empty" hidden><strong>Nenhuma ação encontrada.</strong><span>Ajuste a busca ou confira a Master.</span></div>
+        </section>
+
+        <section class="view" id="territorio" data-title="Território do BA">
+          <div class="page-intro territory-intro">
+            <div><p class="eyebrow">LEITURA TERRITORIAL</p><h2 id="territory-title">Mapa do time</h2><p id="territory-city">SP + RJ</p></div>
+            <a class="outline-button" href="https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_dNCl2a4TlsOukeVZdBjg/edit#gid=801238118" target="_blank" rel="noreferrer">Abrir Territórios WAR ↗</a>
+          </div>
+          <p class="section-copy">A carteira permanece com o owner do B.A Management. Esta visão organiza onde atuar: pilares, áreas, Castelos e Hotzones.</p>
+          <div class="pillar-grid" id="pillar-grid"></div>
+          <div class="territory-layout">
+            <section class="territory-card">
+              <div class="territory-block"><p class="eyebrow orange">ÁREAS ATENDIDAS</p><div class="territory-tags" id="territory-areas"></div></div>
+              <div class="territory-block"><p class="eyebrow orange">HOTZONES</p><div class="territory-tags" id="territory-hotzones"></div></div>
+              <div class="territory-block"><p class="eyebrow orange">CASTELOS</p><div class="territory-tags" id="territory-castles"></div></div>
+              <a class="territory-evidence" id="territory-evidence" href="https://drive.google.com/drive/folders/1O_PEMXBluxIDtdTQUs6zbju2f-hH7Ahf" target="_blank" rel="noreferrer"><span>▣</span><span><strong>Abrir pasta de evidências</strong><small>Fotos de cardápio e ativações</small></span><b>↗</b></a>
+            </section>
+            <section class="map-card">
+              <div class="map-heading"><div><p class="eyebrow orange">MAPA REGIONAL</p><h2>Rota e concentração</h2></div><a id="open-territory-map" href="https://www.google.com/maps" target="_blank" rel="noreferrer">Abrir no Maps ↗</a></div>
+              <div class="map-tabs" id="map-tabs"></div>
+              <iframe id="territory-map" title="Mapa regional do Brand Ambassador" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </section>
+          </div>
+          <p class="territory-note">Pilares e regiões usam a leitura estratégica da Master. Onde ainda não há Castelo ou Hotzone validado, o portal sinaliza “a mapear” em vez de criar uma classificação.</p>
         </section>
 
         <section class="view" id="registrar" data-title="Registrar e solicitar">
@@ -183,11 +210,13 @@
       <nav class="mobile-nav" aria-label="Navegação mobile">
         <button class="nav-item active" data-view="inicio"><span>⌂</span><small>Início</small></button>
         <button class="nav-item" data-view="acoes"><span>✓</span><small>Ações</small></button>
+        <button class="nav-item" data-view="territorio"><span>⌖</span><small>Território</small></button>
         <button class="nav-item center" data-view="registrar"><span>＋</span><small>Registrar</small></button>
         <button class="nav-item" data-view="bases"><span>▦</span><small>Bases</small></button>
         <button class="nav-item" data-view="materiais"><span>◫</span><small>Materiais</small></button>
       </nav>
     </div>
+    <script src="./data.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
