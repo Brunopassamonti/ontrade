@@ -82,6 +82,13 @@ window.PORTAL_DATA = {
         "capacity": 3
       },
       {
+        "name": "BLUE PUB",
+        "area": "São Paulo",
+        "type": "Tap simples",
+        "units": 1,
+        "capacity": 1
+      },
+      {
         "name": "BOTECO AUGUSTA",
         "area": "CENTRO",
         "type": "2 taps triplas",
@@ -686,7 +693,7 @@ window.BA_INSIGHTS = {
     "observations": [
       "19 cadastros de BH aparecem no Report (6) sob o Jerry, mas não pertencem à carteira oficial; foram retirados dos KPIs.",
       "23 nomes de casas aparecem em mais de uma carteira no B.A Management e precisam de decisão de owner.",
-      "353 dos 560 clientes da base oficial ainda não têm visita confirmada no Q3."
+      "343 dos 560 clientes da base oficial ainda não têm visita confirmada no Q3."
     ],
     "todos": [
       "Corrigir ou desativar no BAM os cadastros de BH associados ao Jerry.",
@@ -719,12 +726,12 @@ window.BA_INSIGHTS = {
   "Julia Gutvilen": {
     "observations": [
       "9 nomes estão duplicados entre as carteiras de Julia e Jerry.",
-      "44 de 55 clientes ainda não têm visita confirmada no Q3.",
+      "37 de 55 clientes ainda não têm visita confirmada no Q3.",
       "Não há tap ativa confirmada na carteira oficial atual."
     ],
     "todos": [
       "Validar com Jerry o owner dos 9 nomes duplicados.",
-      "Completar a cobertura dos clientes sem visita.",
+      "Planejar a cobertura dos 37 clientes ainda não visitados.",
       "Atualizar região e papel territorial das casas ainda sem classificação."
     ],
     "suggestions": [
@@ -736,13 +743,13 @@ window.BA_INSIGHTS = {
   "João Pedro Marques": {
     "observations": [
       "13 nomes estão duplicados no B.A Management: 11 com Mani e 2 com Maria.",
-      "104 de 151 clientes ainda não têm visita confirmada no Q3.",
-      "25 taps estão registradas em 20 casas da carteira, incluindo nomes com possível duplicidade."
+      "101 de 151 clientes ainda não têm visita confirmada no Q3.",
+      "26 taps estão registradas em 21 casas da carteira, incluindo nomes com possível duplicidade."
     ],
     "todos": [
       "Decidir o owner das casas duplicadas antes de alterar o BAM.",
       "Revisar primeiro as duplicidades de Pinheiros e Centro.",
-      "Criar plano de cobertura para os 104 clientes não visitados."
+      "Criar plano de cobertura para os 101 clientes não visitados."
     ],
     "suggestions": [
       "Priorizar Pinheiros, Barra Funda, Tatuapé e Baixo Augusta.",
