@@ -41,6 +41,7 @@
           <button class="nav-item" data-view="registrar"><span>＋</span> Registrar</button>
           <button class="nav-item" data-view="bases"><span>▦</span> Bases</button>
           <button class="nav-item" data-view="materiais"><span>◫</span> Materiais</button>
+          <a class="nav-item nav-external" href="https://brunopassamonti.github.io/comodato-jager/" target="_blank" rel="noreferrer"><span>▤</span> Comodato <b>↗</b></a>
         </nav>
 
         <a class="sidebar-master" href="https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_dNCl2a4TlsOukeVZdBjg/edit#gid=1611332193" target="_blank" rel="noreferrer">
@@ -79,6 +80,31 @@
           </div>
 
           <div class="metric-grid" id="metric-grid"></div>
+
+          <section class="consultant-card" aria-labelledby="consultant-title">
+            <div class="consultant-intro">
+              <div class="consultant-mark" aria-hidden="true">JM</div>
+              <div>
+                <p class="eyebrow orange">CONSULTOR ON-TRADE</p>
+                <h2 id="consultant-title">Planeje usando seus dados</h2>
+                <p id="consultant-context">Contexto: visão consolidada do time</p>
+              </div>
+              <span class="consultant-badge">BASE OFICIAL</span>
+            </div>
+            <div class="consultant-prompts" aria-label="Perguntas sugeridas">
+              <button type="button" data-consultant-prompt="Planeje minha semana">Planeje minha semana</button>
+              <button type="button" data-consultant-prompt="Quais são meus maiores gaps?">Meus maiores gaps</button>
+              <button type="button" data-consultant-prompt="Onde devo priorizar visitas?">Priorizar visitas</button>
+              <button type="button" data-consultant-prompt="Como avanço no scorecard?">Avançar no scorecard</button>
+            </div>
+            <div class="consultant-messages" id="consultant-messages" aria-live="polite"></div>
+            <form class="consultant-form" id="consultant-form">
+              <label class="sr-only" for="consultant-input">Pergunte ao Consultor On-Trade</label>
+              <input id="consultant-input" type="text" autocomplete="off" placeholder="Ex.: quais regiões devo trabalhar esta semana?" />
+              <button type="submit" aria-label="Enviar pergunta">Enviar <span>→</span></button>
+            </form>
+            <p class="consultant-note">O consultor usa o snapshot exibido no portal. Mudanças de owner e resultados só valem após atualização da base oficial.</p>
+          </section>
 
           <section class="scorecard-card" aria-labelledby="scorecard-title">
             <div class="scorecard-heading">
@@ -172,6 +198,9 @@
             </a>
             <a class="quick-card accent" href="https://docs.google.com/spreadsheets/d/1DQxE4cigFHxF61TdY180vVIelzeRaw0g5J4ykZ_muxY/edit" target="_blank" rel="noreferrer">
               <span class="quick-icon">A</span><strong>Registrar ativação</strong><small>Cardápio, consumo e foto</small>
+            </a>
+            <a class="quick-card comodato" href="https://brunopassamonti.github.io/comodato-jager/" target="_blank" rel="noreferrer">
+              <span class="quick-icon">▤</span><strong>Comodato</strong><small>Nova solicitação e acompanhamento</small>
             </a>
             <button class="quick-card" data-view="registrar">
               <span class="quick-icon">•••</span><strong>Mais registros</strong><small>TM, comodato, cliente e logística</small>
