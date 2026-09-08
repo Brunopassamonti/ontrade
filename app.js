@@ -397,7 +397,7 @@ const linkGroups = {
     { icon: "CT", title: "Controle de contratos", note: "Acompanhar contratos e projetos League 56", type: "SharePoint", url: "https://mastjaegermeister.sharepoint.com/:x:/r/sites/ORG_SE_BrasilTeam/_layouts/15/Doc.aspx?sourcedoc=%7B30DD36C7-8BB8-4435-A096-54FA0723342A%7D&file=Controle%20de%20Contratos_Versao%20final.xlsx&action=default&mobileredirect=true" },
     { icon: "56", title: "Feierstarters · Ação semanal", note: "Incluir casas para o planejamento da semana", type: "SharePoint", url: "https://mastjaegermeister-my.sharepoint.com/:x:/r/personal/luisa_benvenuto_jaegermeister_com/_layouts/15/Doc.aspx?sourcedoc=%7B5C2034FC-7A98-41D8-9138-3B42933C53F5%7D&file=Acordos%20Night-Outs.xlsx&action=default&mobileredirect=true" },
     { icon: "TM", title: "Tailor Made", note: "Registrar projeto dentro da negociação", type: "Planilha", url: `${MASTER}#gid=848136530` },
-    { icon: "M", title: "Comodato e máquinas", note: "Cadastro e acompanhamento operacional", type: "Planilha", url: `${MASTER}#gid=2109876543` },
+    { icon: "M", title: "Comodato · solicitações e acompanhamento", note: "Importar CNPJ, solicitar, aprovar, assinar e acompanhar a instalação", type: "Aplicativo", url: "https://brunopassamonti.github.io/comodato-jager/" },
     { icon: "#", title: "Número da Tap Machine", note: "Solicitar identificação da máquina", type: "Formulário", url: "https://docs.google.com/forms/d/e/1FAIpQLSd4QZ9xHMKhEz3OZw3emZxRYfP_hOs6O1IpM2Fqr6iKmPVV_Q/viewform" }
   ],
   requests: [
@@ -669,6 +669,124 @@ function renderBaseInsights(ba) {
   document.querySelector("#base-suggestions").innerHTML = list(insight.suggestions);
 }
 
+function consultantSnapshot(ba) {
+  const score = quarterScorecards[ba] || quarterScorecards.TODOS;
+  const week = weeklyEvolution[ba] || weeklyEvolution.TODOS;
+  const insight = baInsights[ba] || baInsights.TODOS;
+  const profile = territoryProfiles[ba] || territoryProfiles.TODOS || { areas: [], hotzones: [], castles: [] };
+  const houses = ba === "TODOS"
+    ? Object.values(tapData).flat()
+    : (tapData[ba] || []);
+  const equipment = houses.reduce((sum, item) => sum + item.units, 0);
+  const capacity = houses.reduce((sum, item) => sum + item.capacity, 0);
+  const baActions = actions.filter(item => ba === "TODOS" || item.ba === ba);
+  const metric = metrics[ba] || pendingMetrics;
+  return {
+    ba,
+    name: ba === "TODOS" ? "time SP–RJ" : ba.split(" ")[0],
+    base: week.base,
+    visited: week.current,
+    unvisited: Math.max(0, week.base - week.current),
+    coverage: week.base ? Math.round((week.current / week.base) * 100) : 0,
+    weeklyVisits: week.visits,
+    newCoverage: week.newCoverage,
+    revisits: week.revisits,
+    po: score.actuals[0],
+    poTarget: score.targets[0],
+    training: score.actuals[3],
+    trainingTarget: score.targets[3],
+    critical: metric[2]?.value ?? "—",
+    houses,
+    equipment,
+    capacity,
+    actions: baActions,
+    observations: insight.observations || [],
+    todos: insight.todos || [],
+    suggestions: insight.suggestions || [],
+    areas: profile.areas || [],
+    hotzones: profile.hotzones || [],
+    castles: profile.castles || []
+  };
+}
+
+function consultantText(question, ba) {
+  const data = consultantSnapshot(ba);
+  const q = String(question || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const poGap = data.poTarget === null || data.po === null ? null : Math.max(0, data.poTarget - data.po);
+  const trainingGap = data.trainingTarget === null || data.training === null ? null : Math.max(0, data.trainingTarget - data.training);
+  const actionLine = item => `${item.client}: ${item.action}`;
+
+  if (q.includes("planej") || q.includes("semana") || q.includes("fazer agora")) {
+    if (ba === "TODOS") {
+      const lowest = Object.entries(weeklyEvolution)
+        .filter(([owner]) => owner !== "TODOS")
+        .map(([owner, item]) => ({ owner: owner.split(" ")[0], coverage: item.base ? Math.round((item.current / item.base) * 100) : 0, pending: item.base - item.current }))
+        .sort((a, b) => a.coverage - b.coverage)
+        .slice(0, 3);
+      return `Plano sugerido para o time\n1. Cobertura: concentrar acompanhamento em ${lowest.map(item => `${item.owner} (${item.coverage}%, ${item.pending} pendentes)`).join(", ")}.\n2. Execução: cobrar fechamento das prioridades já registradas no TO-DO por BA.\n3. Qualidade da base: tratar owners duplicados e exceções antes de redistribuir clientes.\n4. Evidência: cardápio e ativação só entram após foto validada.`;
+    }
+    const priorities = data.actions.slice(0, 3);
+    return `Plano sugerido para ${data.name}\n1. Cobertura: trabalhar parte das ${data.unvisited} casas ainda sem visita confirmada, agrupando por região.\n2. Prioridades: ${priorities.length ? priorities.map(actionLine).join(" | ") : (data.suggestions[0] || "definir as contas prioritárias na Master")}.\n3. Scorecard: atacar ${poGap === null ? "a meta de PO" : `${poGap} PO pendentes`} e ${trainingGap === null ? "a meta de treinamento" : `${trainingGap} treinamentos pendentes`}.\n4. Registro: atualizar o BAM na visita e anexar evidência das ativações.`;
+  }
+
+  if (q.includes("gap") || q.includes("scorecard") || q.includes("meta") || q.includes("resultado")) {
+    return `Leitura do scorecard de ${data.name}\n• Perfect Outlet: ${data.po ?? "a apurar"} de ${data.poTarget ?? "meta a confirmar"}${poGap === null ? "" : ` — faltam ${poGap}`}.\n• Treinamentos: ${data.training ?? "a apurar"} de ${data.trainingTarget ?? "meta a confirmar"}${trainingGap === null ? "" : ` — faltam ${trainingGap}`}.\n• Cobertura: ${data.visited} de ${data.base} casas (${data.coverage}%), com ${data.unvisited} pendentes.\n• Gap crítico 0/6–1/6: ${data.critical}.\n• Contratos e ativações continuam a depender do controle oficial e da evidência.`;
+  }
+
+  if (q.includes("visita") || q.includes("rota") || q.includes("regiao") || q.includes("hotzone") || q.includes("prioriz")) {
+    const routes = data.areas.length ? data.areas.slice(0, 5).join(", ") : "regiões ainda a mapear";
+    const hotzones = data.hotzones.length ? data.hotzones.join(", ") : "nenhuma Hotzone validada";
+    const priorities = data.actions.slice(0, 3).map(item => `${item.route}: ${item.client}`).join(" | ");
+    return `Prioridade de campo para ${data.name}\n• Existem ${data.unvisited} casas sem visita confirmada no Q3.\n• Áreas da carteira: ${routes}.\n• Hotzones: ${hotzones}.\n• Rotas com ação registrada: ${priorities || "consulte o TO-DO por BA e agrupe por proximidade"}.\nSugestão: monte blocos de rota com casas não visitadas + contas foco + casas com tap, sem alterar o owner cadastrado.`;
+  }
+
+  if (q.includes("tap") || q.includes("maquina") || q.includes("equipamento") || q.includes("comodato")) {
+    const topHouses = data.houses.slice(0, 6).map(item => item.name).join(", ");
+    return `Equipamentos de ${data.name}\n• ${data.equipment} taps ativas em ${data.houses.length} casas, com capacidade para ${data.capacity} garrafas.\n${data.houses.length ? `• Casas para começar a rota: ${topHouses}.` : "• Não há tap ativa confirmada nesta carteira."}\n• Para nova máquina ou acompanhamento, abra Comodato na Central Operacional.\n• Confirme instalação, série, foto e atualização do BAM antes de considerar o equipamento ativo.`;
+  }
+
+  if (q.includes("base") || q.includes("owner") || q.includes("duplic") || q.includes("erro") || q.includes("cadastro")) {
+    return `Qualidade da base de ${data.name}\nObservações: ${data.observations.join(" | ")}\nPróximos passos: ${data.todos.join(" | ")}\nA regra permanece: corrigir a inconsistência no BAM sem transferir automaticamente a casa entre BAs.`;
+  }
+
+  return `Resumo de ${data.name}\n• Cobertura: ${data.visited}/${data.base} casas (${data.coverage}%).\n• Movimento da semana: ${data.weeklyVisits} visitas, ${data.newCoverage} novas casas cobertas e ${data.revisits} revisitas.\n• Perfect Outlet: ${data.po ?? "a apurar"}/${data.poTarget ?? "meta a confirmar"}.\n• Treinamentos: ${data.training ?? "a apurar"}/${data.trainingTarget ?? "meta a confirmar"}.\n• Taps: ${data.equipment} equipamentos em ${data.houses.length} casas.\nPosso ajudar a planejar a semana, identificar gaps, organizar visitas, ler o território ou revisar taps e comodatos.`;
+}
+
+function appendConsultantMessage(role, text) {
+  const messages = document.querySelector("#consultant-messages");
+  const item = document.createElement("article");
+  item.className = `consultant-message ${role}`;
+  if (role === "assistant") {
+    const avatar = document.createElement("span");
+    avatar.className = "consultant-avatar";
+    avatar.textContent = "JM";
+    item.appendChild(avatar);
+  }
+  const bubble = document.createElement("div");
+  bubble.className = "consultant-bubble";
+  bubble.textContent = text;
+  item.appendChild(bubble);
+  messages.appendChild(item);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function resetConsultant() {
+  const ba = baSelect.value;
+  const label = ba === "TODOS" ? "visão consolidada do time" : `carteira de ${ba.split(" ")[0]}`;
+  document.querySelector("#consultant-context").textContent = `Contexto: ${label}`;
+  document.querySelector("#consultant-messages").innerHTML = "";
+  appendConsultantMessage("assistant", ba === "TODOS"
+    ? "Estou olhando o time SP–RJ. Posso comparar cobertura, movimento semanal, metas, taps, pendências de base e prioridades. O que você quer organizar?"
+    : `Estou olhando os dados de ${ba.split(" ")[0]}. Posso transformar os indicadores em um plano de campo. Por onde começamos?`);
+}
+
+function askConsultant(question) {
+  const value = String(question || "").trim();
+  if (!value) return;
+  appendConsultantMessage("user", value);
+  appendConsultantMessage("assistant", consultantText(value, baSelect.value));
+}
+
 function renderDashboard() {
   const ba = baSelect.value;
   const data = metrics[ba] || pendingMetrics;
@@ -706,9 +824,16 @@ function changeView(id) {
 }
 
 document.querySelectorAll("[data-view]").forEach(button => button.addEventListener("click", () => changeView(button.dataset.view)));
-baSelect.addEventListener("change", renderDashboard);
+baSelect.addEventListener("change", () => { renderDashboard(); resetConsultant(); });
 searchInput.addEventListener("input", renderActions);
 statusFilter.addEventListener("change", renderActions);
+document.querySelectorAll("[data-consultant-prompt]").forEach(button => button.addEventListener("click", () => askConsultant(button.dataset.consultantPrompt)));
+document.querySelector("#consultant-form").addEventListener("submit", event => {
+  event.preventDefault();
+  const input = document.querySelector("#consultant-input");
+  askConsultant(input.value);
+  input.value = "";
+});
 
 document.querySelector("#results-links").innerHTML = linkCards(linkGroups.results);
 document.querySelector("#execution-links").innerHTML = linkCards(linkGroups.execution);
@@ -718,3 +843,4 @@ document.querySelector("#brand-links").innerHTML = linkCards(linkGroups.brand);
 document.querySelector("#strategy-links").innerHTML = linkCards(linkGroups.strategy);
 document.querySelector("#training-links").innerHTML = linkCards(linkGroups.training);
 renderDashboard();
+resetConsultant();
