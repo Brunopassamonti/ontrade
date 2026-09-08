@@ -3,8 +3,8 @@ const MASTER = "https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_d
 const metrics = {
   TODOS: [
     { label: "Base BAM", value: 560, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
-    { label: "PO hoje", value: 73, foot: "meta do time: 176", icon: "✓" },
-    { label: "Gap crítico", value: 69, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "PO hoje", value: 76, foot: "meta do time: 176", icon: "✓" },
+    { label: "Gap crítico", value: 76, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco BAM", value: 41, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "Jerry Whilem": [
@@ -16,12 +16,12 @@ const metrics = {
   "Julia Gutvilen": [
     { label: "Base BAM", value: 55, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
     { label: "PO hoje", value: 0, foot: "meta: 10", icon: "✓" },
-    { label: "Gap crítico", value: 8, foot: "contas 0/6–1/6", icon: "!", critical: true },
+    { label: "Gap crítico", value: 15, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco BAM", value: 2, foot: "marcadas na Base Única", icon: "◆" }
   ],
   "João Pedro Marques": [
     { label: "Base BAM", value: 151, foot: "clientes ativos únicos · B.A Management", icon: "◎" },
-    { label: "PO hoje", value: 40, foot: "meta: 60", icon: "✓" },
+    { label: "PO hoje", value: 43, foot: "meta: 60", icon: "✓" },
     { label: "Gap crítico", value: 0, foot: "contas 0/6–1/6", icon: "!", critical: true },
     { label: "Casas foco BAM", value: 13, foot: "marcadas na Base Única", icon: "◆" }
   ],
@@ -67,15 +67,28 @@ const pendingMetrics = [
 const scorecardLabels = ["Perfect Outlet / ON6", "Contratos foco", "Cardápio de impacto ou ativação de consumo", "Treinamentos no Q3", "Base visitada no Q3"];
 const scorecardWeights = [30, 25, 25, 10, 10];
 const quarterScorecards = {
-  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 560], actuals: [73, null, null, 104, 207] },
+  TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 560], actuals: [76, null, null, 107, 217] },
   "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46,6,10,36,104], actuals: [13,null,null,19,44] },
-  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10,1,3,10,55], actuals: [0,null,null,1,11] },
-  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60,8,10,36,151], actuals: [40,null,null,43,47] },
+  "Julia Gutvilen": { owner: "Julia · Student Brand Ambassador · RJ", targets: [10,1,3,10,55], actuals: [0,null,null,1,18] },
+  "João Pedro Marques": { owner: "João · Brand Ambassador · SP", targets: [60,8,10,36,151], actuals: [43,null,null,46,50] },
   "Maria Clarentino": { owner: "Maria · Brand Ambassador · SP", targets: [10,2,3,10,26], actuals: [0,null,null,0,17] },
   "Mani Filardi": { owner: "Mani · Brand Ambassador · SP", targets: [10,2,3,10,52], actuals: [1,null,null,2,35] },
   "Marcelo Martins": { owner: "Marcelo · Brand Ambassador · SP", targets: [30,8,10,36,132], actuals: [19,null,null,38,45] },
   "Richard Cordeiro": { owner: "Richard · Embaixador · Campinas", targets: [10,1,3,10,26], actuals: [0,null,null,1,8] },
   "Gustavo Viana": { owner: "Gustavo · metas numéricas pendentes", targets: [null,null,null,null,14], actuals: [0,null,null,0,0] }
+};
+
+
+const weeklyEvolution = {
+  TODOS: { owner: "Time SP–RJ", visits: 18, newCoverage: 10, revisits: 8, base: 560, before: 207, current: 217, po: 3, training: 3, taps: 1 },
+  "Jerry Whilem": { owner: "Jerry", visits: 0, newCoverage: 0, revisits: 0, base: 104, before: 44, current: 44, po: 0, training: 0, taps: 0 },
+  "Julia Gutvilen": { owner: "Julia", visits: 8, newCoverage: 7, revisits: 1, base: 55, before: 11, current: 18, po: 0, training: 0, taps: 0 },
+  "João Pedro Marques": { owner: "João", visits: 10, newCoverage: 3, revisits: 7, base: 151, before: 47, current: 50, po: 3, training: 3, taps: 1 },
+  "Maria Clarentino": { owner: "Maria", visits: 0, newCoverage: 0, revisits: 0, base: 26, before: 17, current: 17, po: 0, training: 0, taps: 0 },
+  "Mani Filardi": { owner: "Mani", visits: 0, newCoverage: 0, revisits: 0, base: 52, before: 35, current: 35, po: 0, training: 0, taps: 0 },
+  "Marcelo Martins": { owner: "Marcelo", visits: 0, newCoverage: 0, revisits: 0, base: 132, before: 45, current: 45, po: 0, training: 0, taps: 0 },
+  "Richard Cordeiro": { owner: "Richard", visits: 0, newCoverage: 0, revisits: 0, base: 26, before: 8, current: 8, po: 0, training: 0, taps: 0 },
+  "Gustavo Viana": { owner: "Gustavo", visits: 0, newCoverage: 0, revisits: 0, base: 14, before: 0, current: 0, po: 0, training: 0, taps: 0 }
 };
 
 const legacyTapData = {
@@ -208,6 +221,13 @@ const legacyTapData = {
       "type": "Tap tripla",
       "units": 1,
       "capacity": 3
+    },
+    {
+      "name": "BLUE PUB",
+      "area": "São Paulo",
+      "type": "Tap simples",
+      "units": 1,
+      "capacity": 1
     },
     {
       "name": "BOTECO AUGUSTA",
@@ -461,6 +481,37 @@ function scorecardRows(ba) {
   }).join("");
 }
 
+
+function renderWeeklyEvolution(ba) {
+  const data = weeklyEvolution[ba] || weeklyEvolution.TODOS;
+  const beforePercent = data.base ? Math.round((data.before / data.base) * 100) : 0;
+  const currentPercent = data.base ? Math.round((data.current / data.base) * 100) : 0;
+  const deltaPercent = currentPercent - beforePercent;
+  const signed = value => value > 0 ? `+${value}` : String(value);
+  const items = [
+    { label: "Visitas BAM", value: data.visits, note: "registros na semana" },
+    { label: "Novas casas", value: data.newCoverage, note: "1ª visita no Q3", positive: data.newCoverage > 0 },
+    { label: "Revisitas", value: data.revisits, note: "casas já cobertas" },
+    { label: "Novos PO", value: signed(data.po), note: "evolução líquida", positive: data.po > 0 },
+    { label: "Treinamentos", value: signed(data.training), note: "novas casas treinadas", positive: data.training > 0 },
+    { label: "Taps", value: signed(data.taps), note: "novos equipamentos", positive: data.taps > 0 }
+  ];
+  document.querySelector("#weekly-owner").textContent = ba === "TODOS" ? "Visão consolidada do time" : `Movimento de ${data.owner}`;
+  document.querySelector("#weekly-coverage-value").innerHTML = `${beforePercent}% <span>→</span> ${currentPercent}%`;
+  document.querySelector("#weekly-coverage-count").textContent = `${data.current} de ${data.base} casas visitadas`;
+  document.querySelector("#weekly-coverage-delta").textContent = `${signed(deltaPercent)} p.p.`;
+  document.querySelector("#weekly-progress-fill").style.width = `${currentPercent}%`;
+  document.querySelector("#weekly-progress-marker").style.left = `${beforePercent}%`;
+  document.querySelector("#weekly-progress").setAttribute("aria-label", `Cobertura evoluiu de ${beforePercent}% para ${currentPercent}%`);
+  document.querySelector("#weekly-grid").innerHTML = items.map(item => `
+    <article class="weekly-stat ${item.positive ? "positive" : ""}">
+      <small>${item.label}</small><strong>${item.value}</strong><span>${item.note}</span>
+    </article>`).join("");
+  document.querySelector("#weekly-note").textContent = data.visits
+    ? `${data.visits} visitas registradas: ${data.newCoverage} novas casas cobertas e ${data.revisits} revisitas.`
+    : "Nenhuma visita nova registrada para este BA no Report (7).";
+}
+
 function renderTapData(ba) {
   const houses = ba === "TODOS"
     ? Object.entries(tapData).flatMap(([owner, items]) => items.map(item => ({ ...item, owner: owner.split(" ")[0] })))
@@ -469,7 +520,7 @@ function renderTapData(ba) {
   const capacity = houses.reduce((sum, item) => sum + item.capacity, 0);
 
   document.querySelector("#tap-summary").innerHTML = `
-    <div class="tap-summary-title"><span class="tap-symbol">TAP</span><div><strong>Taps ativas na base</strong><small>Owner congelado · Report (6)</small></div></div>
+    <div class="tap-summary-title"><span class="tap-symbol">TAP</span><div><strong>Taps ativas na base</strong><small>Owner congelado · Reports 6 + 7</small></div></div>
     <div class="tap-stat"><strong>${equipment}</strong><small>equipamentos</small></div>
     <div class="tap-stat"><strong>${houses.length}</strong><small>casas</small></div>
     <div class="tap-stat"><strong>${capacity}</strong><small>garrafas</small></div>`;
@@ -624,6 +675,7 @@ function renderDashboard() {
   document.querySelector("#metric-grid").innerHTML = metricCards(data);
   document.querySelector("#scorecard-grid").innerHTML = scorecardRows(ba);
   renderTapData(ba);
+  renderWeeklyEvolution(ba);
   renderTerritory(ba);
   renderHotzoneCensus(ba);
   renderBaseInsights(ba);
