@@ -35,6 +35,8 @@ a { color: inherit; text-decoration: none; }
 .desktop-nav .nav-item span { width: 22px; font-size: 1.22rem; text-align: center; }
 .desktop-nav .nav-item:hover, .desktop-nav .nav-item.active { background: rgba(255,255,255,.09); color: var(--white); }
 .desktop-nav .nav-item.active::after { content: ""; width: 4px; height: 22px; background: var(--orange); border-radius: 4px; margin-left: auto; }
+.desktop-nav .nav-external { margin-top: 9px; border: 1px solid rgba(255,255,255,.16); }
+.desktop-nav .nav-external b { margin-left: auto; color: var(--orange); }
 .sidebar-master { margin-top: auto; padding: 15px 16px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,.22); border-radius: 10px; font-size: .78rem; font-weight: 800; letter-spacing: .08em; }
 .sidebar-master:hover { border-color: var(--orange); color: var(--orange); }
 
@@ -68,6 +70,28 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
 .metric-card.critical { background: var(--green-950); color: var(--white); border-color: var(--green-950); }
 .metric-card.critical .metric-label, .metric-card.critical .metric-foot { color: #aab9b0; }
 .metric-card.critical .metric-foot strong { color: var(--orange); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.consultant-card { margin-top: 18px; padding: 22px 24px 18px; border-radius: 14px; color: var(--white); background: linear-gradient(120deg,#07170f 0%,#0c2f20 62%,#154c33 100%); box-shadow: var(--shadow); }
+.consultant-intro { display: grid; grid-template-columns: 48px minmax(0,1fr) auto; gap: 14px; align-items: center; }
+.consultant-mark { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 12px; color: var(--white); background: var(--orange); font-family: var(--display); font-size: 1.25rem; font-weight: 800; letter-spacing: .04em; }
+.consultant-intro h2 { font-size: 1.75rem; }
+.consultant-intro p:not(.eyebrow) { margin: 5px 0 0; color: #b8c7be; font-size: .76rem; }
+.consultant-badge { padding: 7px 9px; border: 1px solid rgba(255,255,255,.18); border-radius: 7px; color: #d6e0da; font-size: .62rem; font-weight: 800; letter-spacing: .08em; }
+.consultant-prompts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 17px; }
+.consultant-prompts button { padding: 8px 10px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #e6ede9; background: rgba(255,255,255,.06); font-size: .7rem; font-weight: 700; cursor: pointer; }
+.consultant-prompts button:hover { border-color: var(--orange); color: var(--white); background: rgba(243,108,33,.12); }
+.consultant-messages { max-height: 350px; overflow-y: auto; display: grid; gap: 9px; margin-top: 13px; padding: 13px; border: 1px solid rgba(255,255,255,.11); border-radius: 11px; background: rgba(0,0,0,.15); }
+.consultant-message { display: flex; gap: 9px; align-items: flex-start; }
+.consultant-message.user { justify-content: flex-end; }
+.consultant-avatar { width: 27px; height: 27px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 7px; background: var(--orange); color: #fff; font-family: var(--display); font-size: .68rem; font-weight: 800; }
+.consultant-message.user .consultant-avatar { display: none; }
+.consultant-bubble { max-width: min(760px,88%); padding: 10px 12px; border-radius: 4px 11px 11px 11px; background: rgba(255,255,255,.1); color: #edf2ef; font-size: .8rem; line-height: 1.55; white-space: pre-line; }
+.consultant-message.user .consultant-bubble { border-radius: 11px 4px 11px 11px; background: var(--orange); color: #fff; }
+.consultant-form { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; margin-top: 10px; }
+.consultant-form input { width: 100%; min-height: 48px; padding: 0 14px; border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.96); }
+.consultant-form button { min-width: 104px; border: 0; border-radius: 8px; background: var(--orange); color: #fff; font-weight: 800; cursor: pointer; }
+.consultant-form button span { margin-left: 5px; }
+.consultant-note { margin: 9px 2px 0; color: #9fb0a6; font-size: .65rem; line-height: 1.4; }
 .scorecard-card { margin-top: 18px; padding: 23px 24px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); box-shadow: 0 4px 14px rgba(8,27,18,.03); }
 .scorecard-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 17px; }
 .scorecard-heading h2 { font-size: 1.85rem; }
@@ -176,6 +200,9 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
 .quick-card { appearance: none; border: 1px solid var(--line); background: var(--paper); border-radius: 12px; padding: 18px; min-height: 124px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; cursor: pointer; }
 .quick-card:hover { border-color: var(--green-500); }
 .quick-card.accent { background: var(--orange-soft); border-color: #f4b58e; }
+.quick-card.comodato { background: var(--green-950); border-color: var(--green-950); color: #fff; }
+.quick-card.comodato small { color: #b8c7be; }
+.quick-card.comodato .quick-icon { background: var(--orange); }
 .quick-icon { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 7px; background: var(--green-900); color: white; margin-bottom: 18px; font-weight: 800; }
 .quick-card strong { margin-bottom: 4px; }
 .quick-card small { color: var(--muted); line-height: 1.35; }
@@ -286,6 +313,18 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   .metric-value { margin-top: 11px; font-size: 2.25rem; }
   .metric-foot { margin-top: 7px; font-size: .66rem; }
   .scorecard-card { margin-top: 10px; padding: 18px 14px 14px; box-shadow: none; }
+  .consultant-card { margin-top: 10px; padding: 17px 14px 14px; border-radius: 12px; box-shadow: none; }
+  .consultant-intro { grid-template-columns: 42px minmax(0,1fr); gap: 11px; }
+  .consultant-mark { width: 42px; height: 42px; border-radius: 10px; }
+  .consultant-intro h2 { font-size: 1.45rem; }
+  .consultant-badge { grid-column: 1 / -1; width: fit-content; }
+  .consultant-prompts { display: grid; grid-template-columns: repeat(2,1fr); }
+  .consultant-prompts button { min-height: 42px; padding: 7px; border-radius: 8px; }
+  .consultant-messages { max-height: 310px; padding: 10px; }
+  .consultant-bubble { max-width: 92%; font-size: .82rem; }
+  .consultant-form { grid-template-columns: 1fr; }
+  .consultant-form input { font-size: 16px; }
+  .consultant-form button { min-height: 45px; }
   .scorecard-heading { align-items: flex-end; gap: 12px; margin-bottom: 11px; }
   .scorecard-heading h2 { font-size: 1.55rem; }
   .scorecard-heading a { max-width: 112px; padding: 8px; text-align: center; white-space: normal; }
