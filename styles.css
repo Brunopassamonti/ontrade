@@ -107,6 +107,31 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
 .tap-type { padding: 5px 7px; border-radius: 5px; background: var(--orange-soft); color: #9f4a1c; font-size: .62rem; font-weight: 800; white-space: nowrap; }
 .tap-empty { grid-column: 1 / -1; margin: 0; padding: 18px; background: #fff; color: var(--muted); font-size: .78rem; }
 .scorecard-note { margin: 13px 0 0; color: var(--muted); font-size: .7rem; line-height: 1.45; }
+
+.weekly-card { margin-top: 18px; padding: 22px 24px; border-radius: 14px; background: linear-gradient(118deg,var(--green-950),var(--green-800)); color: var(--white); box-shadow: var(--shadow); }
+.weekly-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.weekly-heading h2 { font-size: 1.75rem; }
+.weekly-heading p:not(.eyebrow) { margin: 5px 0 0; color: #afbeb5; font-size: .76rem; }
+.weekly-period { padding: 7px 9px; border: 1px solid rgba(255,255,255,.18); border-radius: 7px; color: #d8e0db; font-size: .65rem; font-weight: 800; letter-spacing: .06em; white-space: nowrap; }
+.weekly-coverage { display: grid; grid-template-columns: minmax(180px,.7fr) minmax(220px,1.8fr) auto; gap: 20px; align-items: center; margin-top: 19px; padding: 15px 16px; border: 1px solid rgba(255,255,255,.12); border-radius: 11px; background: rgba(255,255,255,.06); }
+.weekly-coverage-copy small, .weekly-coverage-copy strong, .weekly-coverage-copy em { display: block; }
+.weekly-coverage-copy small { color: #afbeb5; font-size: .6rem; font-weight: 800; letter-spacing: .07em; }
+.weekly-coverage-copy strong { margin-top: 5px; font-family: var(--display); font-size: 1.55rem; }
+.weekly-coverage-copy strong span { color: var(--orange); }
+.weekly-coverage-copy em { margin-top: 3px; color: #cbd5cf; font-size: .66rem; font-style: normal; }
+.weekly-progress { position: relative; height: 10px; border-radius: 999px; background: rgba(255,255,255,.13); }
+.weekly-progress span { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: linear-gradient(90deg,var(--green-500),var(--orange)); transition: width .3s ease; }
+.weekly-progress i { position: absolute; top: -4px; width: 2px; height: 18px; border-radius: 2px; background: #fff; transform: translateX(-1px); opacity: .9; }
+.weekly-coverage-delta { min-width: 58px; color: var(--orange); font-family: var(--display); font-size: 1.2rem; text-align: right; }
+.weekly-grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 8px; margin-top: 10px; }
+.weekly-stat { min-height: 92px; padding: 12px; border: 1px solid rgba(255,255,255,.11); border-radius: 9px; background: rgba(255,255,255,.055); }
+.weekly-stat small, .weekly-stat strong, .weekly-stat span { display: block; }
+.weekly-stat small { color: #afbeb5; font-size: .61rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+.weekly-stat strong { margin-top: 8px; font-family: var(--display); font-size: 1.7rem; line-height: 1; }
+.weekly-stat.positive strong { color: var(--orange); }
+.weekly-stat span { margin-top: 7px; color: #cbd5cf; font-size: .62rem; line-height: 1.25; }
+.weekly-note { margin: 11px 1px 0; color: #cbd5cf; font-size: .69rem; }
+
 .insight-card { margin-top: 18px; padding: 22px 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
 .insight-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
 .insight-heading h2 { font-size: 1.7rem; }
@@ -235,6 +260,7 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   .action-row { grid-template-columns: minmax(160px,1fr) minmax(220px,1.7fr) 120px 25px; }
   .action-row .status { display: none; }
   .insight-grid { grid-template-columns: 1fr; }
+  .weekly-grid { grid-template-columns: repeat(3,1fr); }
   .pillar-grid { grid-template-columns: repeat(2,1fr); }
   .territory-layout { grid-template-columns: 1fr; }
 }
@@ -281,6 +307,16 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
   .tap-house { grid-template-columns: 8px minmax(0,1fr); }
   .tap-type { grid-column: 2; width: fit-content; }
   .scorecard-note { font-size: .74rem; }
+  .weekly-card { margin-top: 10px; padding: 17px 14px; border-radius: 12px; box-shadow: none; }
+  .weekly-heading { align-items: flex-start; gap: 10px; }
+  .weekly-heading h2 { font-size: 1.4rem; }
+  .weekly-period { max-width: 104px; padding: 6px 7px; text-align: center; white-space: normal; }
+  .weekly-coverage { grid-template-columns: 1fr auto; gap: 11px; padding: 13px; }
+  .weekly-progress { grid-column: 1 / -1; grid-row: 2; }
+  .weekly-coverage-delta { grid-column: 2; grid-row: 1; }
+  .weekly-grid { grid-template-columns: repeat(2,1fr); gap: 7px; }
+  .weekly-stat { min-height: 86px; padding: 11px; }
+  .weekly-stat strong { font-size: 1.55rem; }
   .insight-card { margin-top: 10px; padding: 17px 14px; }
   .insight-heading { align-items: flex-start; }
   .insight-heading h2 { font-size: 1.45rem; }
