@@ -26,6 +26,12 @@ window.EXCEL_PORTAL_SOURCE={"meta":{"baseFile":"B.A Management(1).xlsx","previou
     if(!managerTeams[key])managerTeams[key]=[];
     managerTeams[key].push(full(row.ba_name));
   });
+  // Expose manager membership to the rest of the portal so actions and the
+  // consultant use the same scope logic as the dashboard.
+  window.PORTAL_SCOPE_MEMBERS={
+    ...managerTeams,
+    BRASIL:[...byBa.keys()]
+  };
 
   function actual(rows,code){
     const row=rows.find(item=>item.kpi_code===code);
@@ -164,25 +170,225 @@ window.EXCEL_PORTAL_SOURCE={"meta":{"baseFile":"B.A Management(1).xlsx","previou
     {label:"Time Leonardo",items:(managerTeams["GERENTE:LEONARDO"]||[]).map(name=>[name,name])}
   ];
   baSelect.innerHTML=groups.map(group=>`<optgroup label="${group.label}">${group.items.map(([value,label])=>`<option value="${value}">${label}</option>`).join("")}</optgroup>`).join("");
+  const scopeOwners=scope=>{
+    if(scope==="BRASIL")return [...byBa.keys()];
+    if(managerTeams[scope])return managerTeams[scope];
+    return [scope];
+  };
+  const scopeLabel=scope=>{
+    if(scope==="BRASIL")return "Brasil";
+    if(scope==="GERENTE:BRUNO")return "equipe de Bruno";
+    if(scope==="GERENTE:LEONARDO")return "equipe de Leonardo";
+    return scope.split(" ")[0];
+  };
+  const pct=(a,b)=>b?Math.round((num(a)/num(b))*100):0;
+  const fmtDelta=value=>num(value)>0?`+${num(value)}`:String(num(value));
+  const norm=value=>String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR");
+  const rowForScope=scope=>{
+    if(scope==="BRASIL")return src.national[0]||null;
+    if(scope.startsWith("GERENTE:")){
+      const managerName=scope.split(":")[1];
+      return src.managers.find(row=>norm(row.manager_name)===norm(managerName))||null;
+    }
+    return byBa.get(scope)||null;
+  };
+  const scopeRows=scope=>scopeOwners(scope).map(owner=>({owner,row:byBa.get(owner)})).filter(item=>item.row);
+  const rowLine=(label,row)=>{
+    const coverage=pct(row.current_visited,row.base_total);
+    return `${label}: ${row.current_visited}/${row.base_total} casas (${coverage}%) · PO ${row.current_perfect_outlets} · Trein. ${row.current_trainings} · Taps ${row.current_tap_equipment} · evolução ${fmtDelta(row.visited_delta)} casas / ${fmtDelta(row.perfect_outlet_delta)} PO / ${fmtDelta(row.training_delta)} trein.`;
+  };
+
   const originalConsultantSnapshot=consultantSnapshot;
-  consultantSnapshot=function(ba){
-    const data=originalConsultantSnapshot(ba);
-    if(ba==="BRASIL")data.name="Brasil";
-    else if(ba==="GERENTE:BRUNO")data.name="equipe de Bruno";
-    else if(ba==="GERENTE:LEONARDO")data.name="equipe de Leonardo";
+  consultantSnapshot=function(scope){
+    const data=originalConsultantSnapshot(scope);
+    const owners=scopeOwners(scope);
+    const houses=owners.flatMap(owner=>(tapData[owner]||[]).map(item=>({...item,owner})));
+    data.name=scopeLabel(scope);
+    data.houses=houses;
+    data.equipment=houses.reduce((sum,item)=>sum+num(item.units),0);
+    data.capacity=houses.reduce((sum,item)=>sum+num(item.capacity),0);
+    data.actions=actions.filter(item=>owners.includes(item.ba));
+    data.owners=owners;
     return data;
   };
+
+  const managerComparison=()=>{
+    if(src.managers.length<2)return "Ainda não há dois gerentes carregados para comparação.";
+    const rows=[...src.managers].sort((a,b)=>pct(b.current_visited,b.base_total)-pct(a.current_visited,a.base_total));
+    const lines=rows.map(row=>rowLine(row.manager_name,row));
+    const bestCoverage=rows[0];
+    const fastest=[...src.managers].sort((a,b)=>num(b.visited_delta)-num(a.visited_delta))[0];
+    return `Comparativo de gerentes\n• ${lines.join("\n• ")}\nLeitura: ${bestCoverage.manager_name} tem a maior cobertura relativa (${pct(bestCoverage.current_visited,bestCoverage.base_total)}%). ${fastest.manager_name} teve o maior avanço de cobertura no período (${fmtDelta(fastest.visited_delta)} casas).`;
+  };
+
+  const rankingText=(scope,metric="coverage")=>{
+    const rows=scopeRows(scope);
+    if(!rows.length)return "Não encontrei BAs neste recorte.";
+    const metricValue=item=>{
+      const r=item.row;
+      if(metric==="po")return num(r.current_perfect_outlets);
+      if(metric==="training")return num(r.current_trainings);
+      if(metric==="taps")return num(r.current_tap_equipment);
+      if(metric==="evolution")return num(r.visited_delta);
+      return pct(r.current_visited,r.base_total);
+    };
+    const sorted=[...rows].sort((a,b)=>metricValue(b)-metricValue(a));
+    const title={
+      coverage:"cobertura",
+      po:"Perfect Outlet",
+      training:"treinamentos",
+      taps:"taps",
+      evolution:"evolução de cobertura"
+    }[metric];
+    const top=sorted.slice(0,Math.min(5,sorted.length)).map((item,index)=>{
+      const r=item.row;
+      const value=metric==="coverage"?`${pct(r.current_visited,r.base_total)}% (${r.current_visited}/${r.base_total})`
+        :metric==="evolution"?`${fmtDelta(r.visited_delta)} casas`
+        :metric==="po"?`${r.current_perfect_outlets} PO`
+        :metric==="training"?`${r.current_trainings} treinamentos`
+        :`${r.current_tap_equipment} taps`;
+      return `${index+1}. ${item.owner.split(" ")[0]} — ${value}`;
+    });
+    const low=[...sorted].reverse().slice(0,Math.min(3,sorted.length)).map(item=>{
+      const r=item.row;
+      return `${item.owner.split(" ")[0]} (${pct(r.current_visited,r.base_total)}% cobertura, ${r.base_total-r.current_visited} casas sem visita)`;
+    });
+    return `Ranking de ${title} · ${scopeLabel(scope)}\n${top.join("\n")}\n\nAtenção de cobertura: ${low.join(" · ")}.`;
+  };
+
+  const findMentionedBa=q=>{
+    const candidates=[...byBa.keys()].map(owner=>({
+      owner,
+      keys:[owner,owner.split(" ")[0]].map(norm).filter(key=>key.length>=3)
+    }));
+    candidates.sort((a,b)=>Math.max(...b.keys.map(k=>k.length))-Math.max(...a.keys.map(k=>k.length)));
+    return candidates.find(item=>item.keys.some(key=>q.includes(key)))?.owner||null;
+  };
+
+  const clientIndex=(()=>{
+    const map=new Map();
+    Object.entries(tapData).forEach(([owner,houses])=>{
+      houses.forEach(house=>{
+        const key=norm(house.name);
+        if(!map.has(key))map.set(key,{name:house.name,owners:new Set(),taps:[],actions:[]});
+        const item=map.get(key);
+        item.owners.add(owner);
+        item.taps.push({...house,owner});
+      });
+    });
+    actions.forEach(action=>{
+      const names=String(action.client).split("+").map(x=>x.trim()).filter(Boolean);
+      names.forEach(name=>{
+        const key=norm(name);
+        if(!map.has(key))map.set(key,{name,owners:new Set(),taps:[],actions:[]});
+        const item=map.get(key);
+        item.owners.add(action.ba);
+        item.actions.push(action);
+      });
+    });
+    return [...map.entries()].map(([key,value])=>({key,...value})).sort((a,b)=>b.key.length-a.key.length);
+  })();
+  const findClient=q=>clientIndex.find(item=>item.key.length>=4&&q.includes(item.key));
+
+  const baDetail=owner=>{
+    const row=byBa.get(owner);
+    if(!row)return null;
+    const scoreRows=q3ByBa.get(owner)||[];
+    const score=quarterScorecards[owner];
+    const data=consultantSnapshot(owner);
+    const poTarget=score?.targets?.[0];
+    const trainingTarget=score?.targets?.[3];
+    const poGap=poTarget===null||poTarget===undefined?null:Math.max(0,num(poTarget)-num(row.current_perfect_outlets));
+    const trainingGap=trainingTarget===null||trainingTarget===undefined?null:Math.max(0,num(trainingTarget)-num(row.current_trainings));
+    const contracts=actual(scoreRows,"focus_contracts");
+    const activation=actual(scoreRows,"impact_menu_activation");
+    const priorities=data.actions.slice(0,4).map(item=>`${item.client}: ${item.action}`);
+    return `${owner} · gerente ${row.manager_name}\n• Cobertura: ${row.current_visited}/${row.base_total} (${pct(row.current_visited,row.base_total)}%) — faltam ${row.base_total-row.current_visited} casas.\n• Evolução: ${fmtDelta(row.visited_delta)} casas, ${fmtDelta(row.perfect_outlet_delta)} PO, ${fmtDelta(row.training_delta)} treinamentos e ${fmtDelta(row.tap_delta)} taps.\n• Perfect Outlet: ${row.current_perfect_outlets}${poTarget===null||poTarget===undefined?" · meta não confirmada":`/${poTarget} · gap ${poGap}`}.\n• Treinamentos: ${row.current_trainings}${trainingTarget===null||trainingTarget===undefined?" · meta não confirmada":`/${trainingTarget} · gap ${trainingGap}`}.\n• Contratos foco: ${contracts??"a apurar"} · Cardápio/ativação: ${activation??"a apurar"}.\n• Taps: ${data.equipment} equipamentos em ${data.houses.length} casas.\n${priorities.length?`• Prioridades registradas: ${priorities.join(" | ")}`:"• Não há prioridade específica registrada no TO-DO deste BA."}`;
+  };
+
+  const clientDetail=item=>{
+    const owners=[...item.owners];
+    const tapLines=item.taps.map(t=>`${t.owner.split(" ")[0]} · ${t.type} · ${t.area}`);
+    const actionLines=item.actions.map(a=>`${a.ba.split(" ")[0]} · ${a.route}: ${a.action} (${a.kpi})`);
+    return `${item.name}\n• Owner(s) conhecido(s) neste snapshot: ${owners.length?owners.join(", "):"não identificado"}.\n${tapLines.length?`• Tap/equipamento: ${tapLines.join(" | ")}.\n`:""}${actionLines.length?`• Ações registradas: ${actionLines.join(" | ")}.\n`:""}• Limite atual: a ficha completa da BAM por cliente ainda não foi carregada no portal; por isso ON6 item a item, última visita, cardápio, contrato e observações da casa podem não estar disponíveis no chat.`;
+  };
+
+  const legacyConsultantText=consultantText;
+  consultantText=function(question,scope){
+    const raw=String(question||"").trim();
+    const q=norm(raw);
+    if(!q)return "";
+
+    const client=findClient(q);
+    if(client)return clientDetail(client);
+
+    const mentionedBa=findMentionedBa(q);
+    if(mentionedBa&&(q.includes("como")||q.includes("status")||q.includes("resultado")||q.includes("dados")||q.includes("meta")||q.includes("gap")||q.includes(norm(mentionedBa.split(" ")[0])))){
+      return baDetail(mentionedBa);
+    }
+
+    if((q.includes("bruno")&&q.includes("leo"))||(q.includes("bruno")&&q.includes("leonardo"))||q.includes("compar")&&q.includes("gerent")){
+      return managerComparison();
+    }
+
+    if(q.includes("ranking")||q.includes("quem esta melhor")||q.includes("quem esta pior")||q.includes("melhores bas")||q.includes("piores bas")){
+      const rankingScope=scope==="BRASIL"?"BRASIL":scope;
+      if(q.includes("po")||q.includes("perfect"))return rankingText(rankingScope,"po");
+      if(q.includes("trein"))return rankingText(rankingScope,"training");
+      if(q.includes("tap")||q.includes("maquina"))return rankingText(rankingScope,"taps");
+      if(q.includes("evol")||q.includes("cresceu")||q.includes("avanc"))return rankingText(rankingScope,"evolution");
+      return rankingText(rankingScope,"coverage");
+    }
+
+    if(q.includes("quem mais evol")||q.includes("maior evol")||q.includes("ritmo")||q.includes("movimento")){
+      return rankingText(scope==="BRASIL"?"BRASIL":scope,"evolution");
+    }
+
+    if(q.includes("visao brasil")||q.includes("brasil inteiro")||q.includes("nacional")){
+      const row=src.national[0];
+      return row?`Brasil\n• ${row.current_visited}/${row.base_total} casas visitadas (${pct(row.current_visited,row.base_total)}%).\n• Perfect Outlet: ${row.current_perfect_outlets}.\n• Treinamentos: ${row.current_trainings}.\n• Taps: ${row.current_tap_equipment}.\n• Evolução do período: ${fmtDelta(row.visited_delta)} casas, ${fmtDelta(row.perfect_outlet_delta)} PO, ${fmtDelta(row.training_delta)} treinamentos e ${fmtDelta(row.tap_delta)} taps.\n\n${managerComparison()}`:"Visão nacional indisponível.";
+    }
+
+    if((q.includes("leo")||q.includes("leonardo"))&&!mentionedBa){
+      const row=src.managers.find(item=>norm(item.manager_name)==="leonardo");
+      return row?`${rowLine("Equipe de Leonardo",row)}\n\n${rankingText("GERENTE:LEONARDO",q.includes("evol")?"evolution":"coverage")}`:"Dados de Leonardo indisponíveis.";
+    }
+    if(q.includes("bruno")&&!mentionedBa){
+      const row=src.managers.find(item=>norm(item.manager_name)==="bruno");
+      return row?`${rowLine("Equipe de Bruno",row)}\n\n${rankingText("GERENTE:BRUNO",q.includes("evol")?"evolution":"coverage")}`:"Dados de Bruno indisponíveis.";
+    }
+
+    if(q.includes("cobertura")&&scopeRows(scope).length>1){
+      return rankingText(scope,"coverage");
+    }
+    if((q.includes("po")||q.includes("perfect outlet"))&&scopeRows(scope).length>1){
+      return rankingText(scope,"po");
+    }
+    if(q.includes("trein")&&scopeRows(scope).length>1){
+      return rankingText(scope,"training");
+    }
+    if((q.includes("tap")||q.includes("maquina")||q.includes("equipamento"))&&scopeRows(scope).length>1){
+      return rankingText(scope,"taps");
+    }
+
+    const response=legacyConsultantText(raw,scope);
+    if(scope==="BRASIL"||managerTeams[scope]){
+      return `${response}\n\nVocê também pode pedir: “compare Bruno e Leonardo”, “ranking de cobertura”, “quem mais evoluiu?”, “ranking de PO”, “como está o Iury?” ou pesquisar uma casa que já apareça em taps/ações.`;
+    }
+    return response;
+  };
+
   resetConsultant=function(){
     const scope=baSelect.value;
     const labels={
-      "BRASIL":["visão nacional","Estou olhando os dados do Brasil. Posso comparar os gerentes, cobertura, evolução, metas, taps e prioridades."],
-      "GERENTE:BRUNO":["equipe de Bruno","Estou olhando a equipe de Bruno. Posso comparar os BAs e transformar os indicadores em prioridades de campo."],
-      "GERENTE:LEONARDO":["equipe de Leonardo","Estou olhando a equipe de Leonardo. Posso comparar os BAs e transformar os indicadores em prioridades de campo."]
+      "BRASIL":["visão nacional","Estou olhando o Brasil inteiro: gerentes, BAs, cobertura, evolução, metas, taps e prioridades."],
+      "GERENTE:BRUNO":["equipe de Bruno","Estou olhando a equipe de Bruno e consigo comparar os BAs, ritmo, cobertura, PO, treinamentos, taps e prioridades."],
+      "GERENTE:LEONARDO":["equipe de Leonardo","Estou olhando a equipe de Leonardo e consigo comparar os BAs, ritmo, cobertura, PO, treinamentos, taps e prioridades."]
     };
-    const current=labels[scope]||[`carteira de ${scope.split(" ")[0]}`,`Estou olhando os dados de ${scope.split(" ")[0]}. Posso transformar os indicadores em um plano de campo.`];
+    const current=labels[scope]||[`carteira de ${scope.split(" ")[0]}`,`Estou olhando os dados de ${scope.split(" ")[0]}: scorecard, cobertura, evolução, taps e prioridades registradas.`];
     document.querySelector("#consultant-context").textContent=`Contexto: ${current[0]}`;
     document.querySelector("#consultant-messages").innerHTML="";
-    appendConsultantMessage("assistant",`${current[1]} Por onde começamos?`);
+    appendConsultantMessage("assistant",`${current[1]} Você pode perguntar de forma direta, por exemplo: “onde está o maior gap?” ou “quem mais evoluiu?”.`);
   };
 
   baSelect.value="BRASIL";
