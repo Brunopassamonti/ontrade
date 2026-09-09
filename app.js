@@ -65,7 +65,7 @@ const pendingMetrics = [
 ];
 
 const scorecardLabels = ["Perfect Outlet / ON6", "Contratos foco", "Cardápio de impacto ou ativação de consumo", "Treinamentos no Q3", "Base visitada no Q3"];
-const scorecardWeights = [30, 25, 25, 10, 10];
+const scorecardWeights = [20, 25, 20, 10, 10];
 const quarterScorecards = {
   TODOS: { owner: "Visão consolidada do time", targets: [176, 28, 42, 148, 560], actuals: [76, null, null, 107, 217] },
   "Jerry Whilem": { owner: "Jerry · Senior Brand Ambassador · RJ", targets: [46,6,10,36,104], actuals: [13,null,null,19,44] },
