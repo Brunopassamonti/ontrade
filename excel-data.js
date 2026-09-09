@@ -164,6 +164,27 @@ window.EXCEL_PORTAL_SOURCE={"meta":{"baseFile":"B.A Management(1).xlsx","previou
     {label:"Time Leonardo",items:(managerTeams["GERENTE:LEONARDO"]||[]).map(name=>[name,name])}
   ];
   baSelect.innerHTML=groups.map(group=>`<optgroup label="${group.label}">${group.items.map(([value,label])=>`<option value="${value}">${label}</option>`).join("")}</optgroup>`).join("");
+  const originalConsultantSnapshot=consultantSnapshot;
+  consultantSnapshot=function(ba){
+    const data=originalConsultantSnapshot(ba);
+    if(ba==="BRASIL")data.name="Brasil";
+    else if(ba==="GERENTE:BRUNO")data.name="equipe de Bruno";
+    else if(ba==="GERENTE:LEONARDO")data.name="equipe de Leonardo";
+    return data;
+  };
+  resetConsultant=function(){
+    const scope=baSelect.value;
+    const labels={
+      "BRASIL":["visão nacional","Estou olhando os dados do Brasil. Posso comparar os gerentes, cobertura, evolução, metas, taps e prioridades."],
+      "GERENTE:BRUNO":["equipe de Bruno","Estou olhando a equipe de Bruno. Posso comparar os BAs e transformar os indicadores em prioridades de campo."],
+      "GERENTE:LEONARDO":["equipe de Leonardo","Estou olhando a equipe de Leonardo. Posso comparar os BAs e transformar os indicadores em prioridades de campo."]
+    };
+    const current=labels[scope]||[`carteira de ${scope.split(" ")[0]}`,`Estou olhando os dados de ${scope.split(" ")[0]}. Posso transformar os indicadores em um plano de campo.`];
+    document.querySelector("#consultant-context").textContent=`Contexto: ${current[0]}`;
+    document.querySelector("#consultant-messages").innerHTML="";
+    appendConsultantMessage("assistant",`${current[1]} Por onde começamos?`);
+  };
+
   baSelect.value="BRASIL";
   document.querySelector(".ba-filter > span").textContent="VISÃO · BRASIL, GERENTE OU BA";
   document.querySelector(".topbar .eyebrow").textContent="JÄGERMEISTER · ON-TRADE BRASIL · Q3 2026";
