@@ -175,7 +175,17 @@
 
     currentStaff = results[0].data;
     if (!currentStaff) {
-      setAuthState("Seu login foi criado, mas ainda não está vinculado ao cadastro do time. Peça ao gestor para liberar este e-mail.", true);
+      const claim = await client.rpc("claim_staff_access");
+      if (!claim.error && claim.data) {
+        const linked = await client.from("staff_members")
+          .select("id,display_name,full_name,role,manager_id,manager_scope,roster_status,active")
+          .eq("auth_user_id", currentUser.id)
+          .maybeSingle();
+        currentStaff = linked.data;
+      }
+    }
+    if (!currentStaff) {
+      setAuthState("Seu login foi criado, mas este e-mail ainda não consta no cadastro oficial do time. Peça ao gestor para liberar o acesso.", true);
       return;
     }
 
