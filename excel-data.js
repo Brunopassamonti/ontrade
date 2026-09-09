@@ -73,7 +73,15 @@ window.EXCEL_PORTAL_SOURCE={"meta":{"baseFile":"B.A Management(1).xlsx","previou
     baInsights[key].suggestions=[
       visits?`Usar as ${visits} visitas registradas entre 30/08 e 08/09 para organizar a próxima rota.`:"Revisar a rota da semana e registrar as visitas no BAM."
     ];
-    if(!territoryProfiles[key])territoryProfiles[key]={areas:[],hotzones:[],castles:[],city:"Brasil"};
+    if(!territoryProfiles[key])territoryProfiles[key]={
+      city:key==="BRASIL"?"Brasil":label,
+      pillars:(territoryProfiles.TODOS?.pillars||[]).map(item=>({...item,active:false,note:"A mapear"})),
+      areas:[],hotzones:[],castles:[],
+      mapAreas:[{label:key==="BRASIL"?"Brasil":"Área a mapear",query:key==="BRASIL"?"Brasil":label}]
+    };
+    if(window.PORTAL_DATA?.evidenceFolders && !window.PORTAL_DATA.evidenceFolders[key]){
+      window.PORTAL_DATA.evidenceFolders[key]=window.PORTAL_DATA.evidenceRoot;
+    }
   }
 
   src.evolution.forEach(evo=>{
