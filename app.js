@@ -560,12 +560,18 @@ function linkCards(items) {
     </a>`).join("");
 }
 
+function scopeIncludesBa(scope, itemBa) {
+  if (scope === "TODOS" || scope === "BRASIL") return true;
+  const members = window.PORTAL_SCOPE_MEMBERS?.[scope];
+  return Array.isArray(members) ? members.includes(itemBa) : itemBa === scope;
+}
+
 function selectedActions() {
   const ba = baSelect.value;
   const query = (searchInput?.value || "").trim().toLocaleLowerCase("pt-BR");
   const status = statusFilter?.value || "todos";
   return actions.filter(item => {
-    const byBA = ba === "TODOS" || item.ba === ba;
+    const byBA = scopeIncludesBa(ba, item.ba);
     const haystack = `${item.client} ${item.route} ${item.action} ${item.kpi}`.toLocaleLowerCase("pt-BR");
     const byQuery = !query || haystack.includes(query);
     const byStatus = status === "todos" || item.status === status;
@@ -679,7 +685,7 @@ function consultantSnapshot(ba) {
     : (tapData[ba] || []);
   const equipment = houses.reduce((sum, item) => sum + item.units, 0);
   const capacity = houses.reduce((sum, item) => sum + item.capacity, 0);
-  const baActions = actions.filter(item => ba === "TODOS" || item.ba === ba);
+  const baActions = actions.filter(item => scopeIncludesBa(ba, item.ba));
   const metric = metrics[ba] || pendingMetrics;
   return {
     ba,
@@ -797,9 +803,16 @@ function renderDashboard() {
   renderTerritory(ba);
   renderHotzoneCensus(ba);
   renderBaseInsights(ba);
-  const filtered = actions.filter(item => ba === "TODOS" || item.ba === ba);
+  const filtered = actions.filter(item => scopeIncludesBa(ba, item.ba));
   document.querySelector("#home-actions").innerHTML = filtered.length ? actionRows(filtered) : `<div class="empty-state"><strong>Sem prioridade registrada para esta visão.</strong><span>Consulte o TO DO por BA na Master.</span></div>`;
-  document.querySelector("#focus-title").textContent = ba === "TODOS" ? "Fechar o gap começando pelas contas 5/6 e 4/6." : `Priorizar as entregas de ${ba.split(" ")[0]} nesta semana.`;
+  const focusOwner = ba === "BRASIL" || ba === "TODOS"
+    ? "Brasil"
+    : ba.startsWith("GERENTE:")
+      ? `equipe de ${ba.split(":")[1].toLocaleLowerCase("pt-BR")}`
+      : ba.split(" ")[0];
+  document.querySelector("#focus-title").textContent = ba === "BRASIL" || ba === "TODOS"
+    ? "Priorizar cobertura, PO e execução por gerente."
+    : `Priorizar as entregas da ${focusOwner} nesta semana.`;
   const targets = ba === "Jerry Whilem"
     ? [[7,"PO"],[2,"Contratos"],[2,"Ativações"],[8,"Treinamentos"]]
     : ba === "TODOS"
