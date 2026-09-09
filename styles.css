@@ -417,3 +417,142 @@ select, input { min-height: 44px; border: 1px solid var(--line); border-radius: 
 }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto !important; } }
+
+
+/* Supabase nacional + autenticação */
+.auth-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(5, 18, 12, .82);
+  backdrop-filter: blur(14px);
+}
+.auth-shell.hidden { display: none; }
+.auth-card {
+  width: min(480px, 100%);
+  padding: 34px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 24px;
+  background: #f8f5ec;
+  box-shadow: 0 28px 80px rgba(0,0,0,.34);
+  color: var(--green-950);
+}
+.auth-brand {
+  margin-bottom: 34px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+.auth-brand span { color: #e7682f; }
+.auth-card h2 { margin: 6px 0 10px; font-size: clamp(1.65rem, 4vw, 2.3rem); line-height: 1.05; }
+.auth-card p { line-height: 1.5; }
+.auth-card form { display: grid; gap: 14px; margin-top: 24px; }
+.auth-card label { display: grid; gap: 7px; font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.auth-card input,
+.smart-fields input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid #c7c9c2;
+  border-radius: 10px;
+  background: #fff;
+  color: #0a1d13;
+  font: inherit;
+}
+.auth-card input:focus,
+.smart-fields input:focus { outline: 3px solid rgba(231,104,47,.18); border-color: #e7682f; }
+.auth-primary,
+.auth-secondary {
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-weight: 850;
+  cursor: pointer;
+}
+.auth-primary { border: 0; background: #e7682f; color: white; }
+.auth-secondary { width: 100%; margin-top: 10px; border: 1px solid #c7c9c2; background: transparent; color: var(--green-900); }
+.auth-status { min-height: 20px; color: #8f3d1c; font-size: .85rem; }
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 9px 7px 13px;
+  border: 1px solid rgba(14,72,46,.18);
+  border-radius: 999px;
+  background: rgba(255,255,255,.68);
+  color: var(--green-900);
+  font-size: .78rem;
+  font-weight: 800;
+}
+.user-menu button {
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--green-900);
+  color: white;
+  cursor: pointer;
+}
+.secure-pill {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  padding: 5px 8px;
+  border: 1px solid rgba(58,141,94,.34);
+  border-radius: 999px;
+  background: rgba(58,141,94,.1);
+  color: var(--green-800);
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .07em;
+}
+.smart-document-card {
+  margin: 20px 0 32px;
+  padding: clamp(20px, 4vw, 32px);
+  border: 1px solid rgba(14,72,46,.14);
+  border-radius: 22px;
+  background: linear-gradient(145deg, #fff, #f3f1e9);
+  box-shadow: 0 12px 40px rgba(9,42,27,.08);
+}
+.smart-doc-heading { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; }
+.smart-doc-heading h3 { margin: 4px 0 0; font-size: 1.55rem; }
+.smart-document-card > p { max-width: 850px; color: #526059; line-height: 1.55; }
+#smart-document-form { display: grid; gap: 18px; margin-top: 22px; }
+.document-drop {
+  display: grid;
+  gap: 5px;
+  padding: 22px;
+  border: 2px dashed rgba(14,72,46,.28);
+  border-radius: 16px;
+  background: rgba(58,141,94,.05);
+  cursor: pointer;
+}
+.document-drop span { color: #657068; font-size: .82rem; }
+.document-drop input { margin-top: 10px; }
+.smart-file-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.smart-file-list span {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #e7ede8;
+  color: #174e35;
+  font-size: .76rem;
+  font-weight: 750;
+}
+.smart-fields { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+.smart-fields label { display: grid; gap: 6px; color: var(--green-900); font-size: .74rem; font-weight: 850; text-transform: uppercase; letter-spacing: .035em; }
+.smart-fields .wide { grid-column: span 3; }
+
+@media (max-width: 900px) {
+  .topbar { flex-wrap: wrap; }
+  .user-menu { order: 3; width: 100%; justify-content: space-between; border-radius: 12px; }
+  .smart-fields { grid-template-columns: 1fr 1fr; }
+  .smart-fields .wide { grid-column: span 2; }
+}
+@media (max-width: 620px) {
+  .auth-shell { padding: 12px; }
+  .auth-card { padding: 24px 20px; border-radius: 18px; }
+  .smart-doc-heading { display: grid; }
+  .smart-fields { grid-template-columns: 1fr; }
+  .smart-fields .wide { grid-column: auto; }
+}
