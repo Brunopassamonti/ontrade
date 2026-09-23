@@ -1,2 +1,2 @@
 // Loader seguro: preserva base nacional, gerências e todos os BAs; aplica melhorias depois.
-(()=>{const load=src=>new Promise((ok,fail)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=fail;document.head.appendChild(s)});load('./excel-national-data.js?v=20260909-3').then(()=>load('./enhancements-1409.js?v=20260914-2')).catch(console.error);})();
+(()=>{const load=src=>new Promise((ok,fail)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=fail;document.head.appendChild(s)});load('./excel-national-data.js?v=20260922-1').then(()=>load('./enhancements-1409.js?v=20260914-2')).catch(console.error);})();
