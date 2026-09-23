@@ -855,5 +855,239 @@ document.querySelector("#base-links").innerHTML = linkCards(linkGroups.bases);
 document.querySelector("#brand-links").innerHTML = linkCards(linkGroups.brand);
 document.querySelector("#strategy-links").innerHTML = linkCards(linkGroups.strategy);
 document.querySelector("#training-links").innerHTML = linkCards(linkGroups.training);
+
+const eventPipeline = [
+  {
+    id: "mochakk-calling",
+    event: "Mochakk Calling",
+    producer: "Entourage",
+    date: "03/10/2026",
+    city: "São Paulo",
+    status: "Em negociação",
+    priority: "Alta",
+    nextStep: "Confirmar condição vigente e concluir análise da proposta",
+    owner: "BA On MKT",
+    route: "Aprovação Bruno/Vitor",
+    approval: "Pendente",
+    sourceState: "DIVERGÊNCIA A CONFIRMAR",
+    summary: "Evento-piloto para validar a V1 do processo. A planilha oficial ainda registra o caso como em negociação.",
+    product: ["Produto / volume: confirmar", "Rigarr: alinhar condição vigente antes do fechamento"],
+    ritual: ["Perfect Shot -18°C", "TAP Machine quando tecnicamente viável"],
+    presence: ["Menu", "Presença nos bares acordados", "Materiais conforme escopo aprovado"],
+    counterparts: ["Contrapartidas comerciais e de visibilidade: confirmar na proposta vigente"],
+    pending: [
+      "Confirmar fee e % de bonificação vigentes",
+      "Validar versão final da proposta antes de congelar escopo",
+      "Após aprovação, gerar Card Operacional"
+    ]
+  },
+  {
+    id: "discopedia",
+    event: "Discopédia",
+    producer: "Discopédia",
+    date: "07/11/2026",
+    city: "São Paulo",
+    status: "Em negociação",
+    priority: "Média",
+    nextStep: "Fechar proposta e confirmar apoio de produto",
+    owner: "BA On MKT",
+    route: "A definir",
+    approval: "Pendente",
+    sourceState: "PARCIAL",
+    summary: "Caso simples para testar a rota operacional sem contrato.",
+    product: ["Apoio de produto: confirmar"],
+    ritual: ["Baixa complexidade operacional"],
+    presence: ["Presença básica conforme negociação"],
+    counterparts: ["Feierstarters / comunidade quando aprovado"],
+    pending: ["Confirmar volume", "Confirmar contrapartidas finais", "Definir rota comercial"]
+  },
+  {
+    id: "araxas",
+    event: "Réveillon Araxás",
+    producer: "Agência mídias",
+    date: "27/12/2026–02/01/2027",
+    city: "Não informado",
+    status: "Em negociação",
+    priority: "Alta",
+    nextStep: "Revisar investimento, contrapartidas e escopo",
+    owner: "BA On MKT",
+    route: "Aprovação Bruno/Vitor",
+    approval: "Pendente",
+    sourceState: "PARCIAL",
+    summary: "Caso complexo para validar fee, bonificação, operação e investimento adicional.",
+    product: ["Bonificação: confirmar condição vigente"],
+    ritual: ["Ritual e operação dependem do escopo aprovado"],
+    presence: ["Revisar bar / presença da marca"],
+    counterparts: ["Contrapartidas completas a consolidar"],
+    pending: ["Confirmar público", "Confirmar investimento vigente", "Consolidar escopo operacional"]
+  },
+  {
+    id: "solomun",
+    event: "Solomun",
+    producer: "Entourage",
+    date: "01/11/2026",
+    city: "São Paulo",
+    status: "Em negociação",
+    priority: "Alta",
+    nextStep: "Medir Mochakk antes da decisão final",
+    owner: "BA On MKT",
+    route: "Aprovação Bruno/Vitor",
+    approval: "Aguardando aprendizado",
+    sourceState: "PARCIAL",
+    summary: "Decisão condicionada ao aprendizado do evento Mochakk.",
+    product: ["A confirmar após Mochakk"],
+    ritual: ["A confirmar após Mochakk"],
+    presence: ["A confirmar após Mochakk"],
+    counterparts: ["A confirmar após Mochakk"],
+    pending: ["Consolidar resultado de Mochakk", "Revisar proposta", "Decidir avanço"]
+  },
+  {
+    id: "soho-halloween",
+    event: "Soho Halloween",
+    producer: "Soho House",
+    date: "31/10/2026",
+    city: "São Paulo",
+    status: "Mapeado",
+    priority: "Média",
+    nextStep: "Estruturar proposta para a temporada, não apenas Halloween",
+    owner: "BA On MKT",
+    route: "A definir",
+    approval: "Pendente",
+    sourceState: "PARCIAL",
+    summary: "Oportunidade deve ser tratada como parceria de temporada.",
+    product: ["Produto por evento: estruturar"],
+    ritual: ["Presença básica permanente como base"],
+    presence: ["Presença permanente: estruturar"],
+    counterparts: ["Escopo da temporada: definir"],
+    pending: ["Definir calendário da temporada", "Construir proposta consolidada", "Confirmar investimento"]
+  }
+];
+
+let selectedEventId = eventPipeline[0]?.id || null;
+
+function eventMetrics(items) {
+  const count = status => items.filter(item => item.status === status).length;
+  const approval = items.filter(item => item.route === "Aprovação Bruno/Vitor").length;
+  const unresolved = items.reduce((sum,item) => sum + item.pending.length,0);
+  return [
+    {label:"Eventos ativos",value:items.length,note:"pilotos da V1"},
+    {label:"Em negociação",value:count("Em negociação"),note:"exigem próximo passo"},
+    {label:"Aprovação",value:approval,note:"rota Bruno → Vitor"},
+    {label:"Pendências",value:unresolved,note:"itens a confirmar"}
+  ];
+}
+
+function renderEventMetrics(items) {
+  const target = document.querySelector("#events-metrics");
+  if (!target) return;
+  target.innerHTML = eventMetrics(items).map(item => `
+    <article class="event-metric-card">
+      <small>${item.label}</small>
+      <strong>${item.value}</strong>
+      <span>${item.note}</span>
+    </article>`).join("");
+}
+
+function eventStatusClass(status) {
+  return String(status).toLowerCase().replace(/\s+/g,"-").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+function renderEventList() {
+  const list = document.querySelector("#event-list");
+  if (!list) return;
+  const query = (document.querySelector("#event-search")?.value || "").toLowerCase().trim();
+  const status = document.querySelector("#event-status-filter")?.value || "todos";
+  const filtered = eventPipeline.filter(item => {
+    const matchesQuery = !query || (item.event + " " + item.producer).toLowerCase().includes(query);
+    const matchesStatus = status === "todos" || item.status === status;
+    return matchesQuery && matchesStatus;
+  });
+  renderEventMetrics(filtered);
+  document.querySelector("#events-count").textContent = `${filtered.length} evento${filtered.length === 1 ? "" : "s"}`;
+  list.innerHTML = filtered.map(item => `
+    <button class="event-list-item ${item.id === selectedEventId ? "active" : ""}" data-event-id="${item.id}">
+      <span class="event-status-dot ${eventStatusClass(item.status)}"></span>
+      <span class="event-list-main">
+        <strong>${item.event}</strong>
+        <small>${item.producer} · ${item.date}</small>
+      </span>
+      <span class="event-list-side">
+        <em>${item.status}</em>
+        <small>${item.nextStep}</small>
+      </span>
+    </button>`).join("") || `<div class="empty-state"><strong>Nenhum evento encontrado.</strong><span>Ajuste os filtros.</span></div>`;
+  list.querySelectorAll("[data-event-id]").forEach(button => button.addEventListener("click", () => {
+    selectedEventId = button.dataset.eventId;
+    renderEventList();
+    renderEventDetail();
+  }));
+}
+
+function renderEventDetail() {
+  const target = document.querySelector("#event-detail");
+  if (!target) return;
+  const item = eventPipeline.find(x => x.id === selectedEventId) || eventPipeline[0];
+  if (!item) return;
+  const bullets = arr => arr.map(x => `<li>${x}</li>`).join("");
+  target.innerHTML = `
+    <div class="event-detail-head">
+      <div>
+        <p class="eyebrow orange">CARD DO EVENTO</p>
+        <h2>${item.event}</h2>
+        <p>${item.producer} · ${item.date} · ${item.city}</p>
+      </div>
+      <span class="event-status-badge ${eventStatusClass(item.status)}">${item.status}</span>
+    </div>
+    <p class="event-summary">${item.summary}</p>
+    <div class="event-signal ${item.sourceState.includes("DIVERGÊNCIA") ? "warning" : ""}">
+      <strong>Qualidade da informação</strong><span>${item.sourceState}</span>
+    </div>
+    <div class="event-facts-grid">
+      <div><small>PRIORIDADE</small><strong>${item.priority}</strong></div>
+      <div><small>ROTA</small><strong>${item.route}</strong></div>
+      <div><small>APROVAÇÃO</small><strong>${item.approval}</strong></div>
+      <div><small>RESPONSÁVEL</small><strong>${item.owner}</strong></div>
+    </div>
+    <section class="event-next-step">
+      <small>PRÓXIMO PASSO</small>
+      <strong>${item.nextStep}</strong>
+    </section>
+    <div class="event-four-blocks">
+      <article><span>P</span><div><small>PRODUTO</small><ul>${bullets(item.product)}</ul></div></article>
+      <article><span>R</span><div><small>RITUAL</small><ul>${bullets(item.ritual)}</ul></div></article>
+      <article><span>PR</span><div><small>PRESENÇA</small><ul>${bullets(item.presence)}</ul></div></article>
+      <article><span>C</span><div><small>CONTRAPARTIDAS</small><ul>${bullets(item.counterparts)}</ul></div></article>
+    </div>
+    <section class="event-pending">
+      <div class="event-section-title"><p class="eyebrow orange">PENDÊNCIAS</p><h3>Antes de avançar</h3></div>
+      <ol>${item.pending.map(x => `<li>${x}</li>`).join("")}</ol>
+    </section>
+    <div class="event-actions-row">
+      <button type="button" class="event-primary-action" data-event-action="proposal">Analisar proposta</button>
+      <button type="button" class="event-secondary-action" data-event-action="card">Preparar card operacional</button>
+      <button type="button" class="event-secondary-action" data-event-action="precheck">Abrir pré-check</button>
+    </div>
+    <p class="event-action-note" id="event-action-note">V1: ações guiadas. Nenhuma gravação automática na planilha.</p>
+  `;
+  target.querySelectorAll("[data-event-action]").forEach(button => button.addEventListener("click", () => {
+    const action = button.dataset.eventAction;
+    const notes = {
+      proposal: `Próximo fluxo: revisar proposta → divergências → rota comercial → aprovação.`,
+      card: item.status === "Aprovado" ? `Card Operacional pronto para ser montado.` : `Card Operacional só deve ser congelado depois da aprovação do escopo.`,
+      precheck: ["Pré-check","Aprovado","Planejamento","Em produção"].includes(item.status) ? `Abrir checklist técnico e operacional.` : `Pré-check ainda não deve começar neste estágio.`
+    };
+    document.querySelector("#event-action-note").textContent = notes[action];
+  }));
+}
+
+function initEventsWorkspace() {
+  if (!document.querySelector("#event-list")) return;
+  renderEventList();
+  renderEventDetail();
+  document.querySelector("#event-search")?.addEventListener("input", renderEventList);
+  document.querySelector("#event-status-filter")?.addEventListener("change", renderEventList);
+}
+
 renderDashboard();
 resetConsultant();
+initEventsWorkspace();
