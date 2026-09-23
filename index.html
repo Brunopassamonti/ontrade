@@ -38,6 +38,7 @@
           <button class="nav-item active" data-view="inicio"><span>⌂</span> Início</button>
           <button class="nav-item" data-view="acoes"><span>✓</span> Ações</button>
           <button class="nav-item" data-view="territorio"><span>⌖</span> Território</button>
+          <button class="nav-item" data-view="eventos"><span>EV</span> Eventos</button>
           <button class="nav-item" data-view="registrar"><span>＋</span> Registrar</button>
           <button class="nav-item" data-view="bases"><span>▦</span> Bases</button>
           <button class="nav-item" data-view="materiais"><span>◫</span> Materiais</button>
@@ -277,6 +278,52 @@
           <p class="territory-note">Pilares e regiões usam a leitura estratégica da Master. Onde ainda não há Castelo ou Hotzone validado, o portal sinaliza “a mapear” em vez de criar uma classificação.</p>
         </section>
 
+
+        <section class="view" id="eventos" data-title="Eventos SP/RJ">
+          <div class="page-intro events-intro">
+            <div>
+              <p class="eyebrow">BA ON MKT · EVENTOS</p>
+              <h2>Pipeline e operação</h2>
+              <p>Da oportunidade ao resultado, sem transformar a planilha em formulário gigante.</p>
+            </div>
+            <a class="outline-button" href="https://docs.google.com/spreadsheets/d/1X3y1y4Yk8BzZJ4Z874EbIjhbM_ox0i9a/edit?usp=drivesdk&ouid=111432047122403337192&rtpof=true&sd=true" target="_blank" rel="noreferrer">Abrir planilha oficial ↗</a>
+          </div>
+
+          <div class="events-source-note">
+            <span class="live-dot"></span>
+            <strong>V1 em validação.</strong>
+            Leitura operacional dos eventos-piloto. Nenhuma alteração é enviada automaticamente para a planilha.
+          </div>
+
+          <div class="events-metrics" id="events-metrics"></div>
+
+          <div class="events-toolbar">
+            <div class="search-wrap"><span>⌕</span><input id="event-search" type="search" placeholder="Buscar evento ou produtora" /></div>
+            <select id="event-status-filter" aria-label="Filtrar eventos por status">
+              <option value="todos">Todos os status</option>
+              <option value="Mapeado">Mapeado</option>
+              <option value="Em negociação">Em negociação</option>
+              <option value="Aprovado">Aprovado</option>
+              <option value="Pré-check">Pré-check</option>
+              <option value="Executado">Executado</option>
+            </select>
+          </div>
+
+          <div class="events-layout">
+            <section class="event-list-panel">
+              <div class="events-list-heading">
+                <div><p class="eyebrow orange">PIPELINE</p><h2>Eventos em acompanhamento</h2></div>
+                <span id="events-count"></span>
+              </div>
+              <div class="event-list" id="event-list"></div>
+            </section>
+
+            <section class="event-detail-panel" id="event-detail-panel">
+              <div id="event-detail"></div>
+            </section>
+          </div>
+        </section>
+
         <section class="view" id="registrar" data-title="Registrar e solicitar">
           <div class="page-intro"><div><p class="eyebrow">CENTRAL OPERACIONAL</p><h2>Registrar e solicitar</h2></div></div>
           <p class="section-copy">Use o formulário correto para manter o histórico e evitar informações soltas por mensagem.</p>
@@ -310,6 +357,7 @@
         <button class="nav-item active" data-view="inicio"><span>⌂</span><small>Início</small></button>
         <button class="nav-item" data-view="acoes"><span>✓</span><small>Ações</small></button>
         <button class="nav-item" data-view="territorio"><span>⌖</span><small>Território</small></button>
+        <button class="nav-item" data-view="eventos"><span>EV</span><small>Eventos</small></button>
         <button class="nav-item center" data-view="registrar"><span>＋</span><small>Registrar</small></button>
         <button class="nav-item" data-view="bases"><span>▦</span><small>Bases</small></button>
         <button class="nav-item" data-view="materiais"><span>◫</span><small>Materiais</small></button>
