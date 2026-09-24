@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-var KEY='jager_weekly_planner_v1',QSTART='2026-07-01',QEND='2026-09-30';
+var KEY='jager_weekly_planner_v1',QKEY='jager_quarter_view_v1';
 var TYPES=['LIG56','Ativação de consumo','Incentivo de brigada','Tailor Made','Treinamento de brigada','Visita comercial','Contrato','Cardápio','Outro'];
 var KPIS=['ON6 / Perfect Outlet','Treinamento de brigada','Ativação de consumo','Contrato','Cardápio','Cobertura / visita','Outro'];
 function q(s,r){return (r||document).querySelector(s)} function qa(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
@@ -20,17 +20,18 @@ function candidates(){
  groups.forEach(function(owner){(tap[owner]||[]).forEach(function(x){out[x.name]={name:x.name,area:x.area||'',ba:owner}})});
  return Object.keys(out).map(function(k){return out[k]})
 }
-function trainCount(){
- var r=window.PORTAL_DATA&&window.PORTAL_DATA.trainingRecords;if(!Array.isArray(r))return null;var b=ba();
- return r.filter(function(x){var yes=String(x.barStaffTraining||x.training||'').toLowerCase()==='yes',dt=String(x.trainingDate||x.date||'').slice(0,10);return yes&&dt>=QSTART&&dt<=QEND&&(b==='TODOS'||x.ba===b)}).length
-}
+function quarter(){return localStorage.getItem(QKEY)||'2026Q3'}
+function quarterData(){var a=window.ANNUAL_KPI_DATA&&window.ANNUAL_KPI_DATA.quarters;return a?a[quarter()]||null:null}
+function trainCount(){var d=quarterData();if(!d)return null;var b=ba();if(b==='TODOS')return d.totals.barStaffTrainingYes;return d.byBA[b]?d.byBA[b].barStaffTrainingYes:null}
+function ensureQuarterControl(){var top=q('.topbar');if(!top||q('#quarter-select'))return;var lab=document.createElement('label');lab.className='ba-filter quarter-filter';lab.innerHTML='<span>QUARTER</span><select id="quarter-select"><option value="2026Q1">Q1 2026</option><option value="2026Q2">Q2 2026</option><option value="2026Q3">Q3 2026</option><option value="2026Q4">Q4 2026</option></select>';top.appendChild(lab);var sel=q('#quarter-select');sel.value=quarter();qa('option',sel).forEach(function(o){if(!(window.ANNUAL_KPI_DATA&&window.ANNUAL_KPI_DATA.quarters&&window.ANNUAL_KPI_DATA.quarters[o.value])){o.textContent+=' · sem dados nesta exportação'}});sel.onchange=function(){localStorage.setItem(QKEY,sel.value);home();render();patchTraining();patchQuarterLabels()}}
+function patchQuarterLabels(){var qtr=quarter(),label=qtr.slice(-2)+' 2026',d=quarterData(),ey=q('.topbar .eyebrow');if(ey)ey.textContent='JÄGERMEISTER · ON-TRADE BRASIL · '+label;var st=q('#scorecard-title');if(st)st.textContent='Metas '+label;var note=q('.scorecard-note');if(note){note.textContent=d?'Visão filtrada pelo quarter selecionado. Treinamentos contam Bar Staff Training = Yes nos registros cuja Registration Date está dentro do quarter.':'Sem dados desta exportação para '+label+'. Os números do scorecard histórico não devem ser interpretados como resultado deste quarter.'}var card=q('.scorecard-card');if(card)card.classList.toggle('quarter-unavailable',!d)}
 function patchTraining(){
  var row=qa('.scorecard-row').filter(function(x){return /Treinamentos/i.test(x.innerText)})[0];if(!row)return;
  var st=q('.scorecard-kpi strong',row),sm=q('.scorecard-kpi small',row),n=trainCount();
- if(st)st.textContent='Treinamentos de brigada no Q3';
- if(sm)sm.textContent='Bar Staff Training = Yes + data dentro do quarter';
+ if(st)st.textContent='Treinamentos de brigada no '+quarter().slice(-2);
+ if(sm)sm.textContent='Bar Staff Training = Yes + Registration Date dentro do quarter';
  if(n!==null&&q('.scorecard-result strong',row))q('.scorecard-result strong',row).textContent=n;
- if(n===null)row.title='A data de Bar Staff Training ainda não está exposta neste snapshot; a regra nova não força uma contagem.';
+ if(n===null)row.title='Sem dado comprovado para este BA/quarter nesta exportação.';
 }
 function addTask(pref){
  pref=pref||{};var cs=candidates(),bopts=qa('#ba-select option').filter(function(o){return o.value!=='TODOS'}).map(function(o){return '<option '+(o.value===(pref.ba||ba())?'selected':'')+'>'+esc(o.value)+'</option>'}).join('');
@@ -74,6 +75,6 @@ function home(){
  q('#open-planner',b).onclick=function(){var bt=qa('[data-view="acoes"]')[0];if(bt)bt.click();setTimeout(function(){var x=q('#weekly-planner');if(x)x.scrollIntoView({behavior:'smooth'})},80)};
  patchTraining()
 }
-function init(){home();render();patchTraining();var s=q('#ba-select');if(s)s.addEventListener('change',function(){setTimeout(function(){home();render();patchTraining()},80)});document.addEventListener('click',function(e){if(e.target.closest('[data-view="inicio"]'))setTimeout(home,80);if(e.target.closest('[data-view="acoes"]'))setTimeout(render,80)})}
+function init(){ensureQuarterControl();patchQuarterLabels();home();render();patchTraining();var s=q('#ba-select');if(s)s.addEventListener('change',function(){setTimeout(function(){home();render();patchTraining()},80)});document.addEventListener('click',function(e){if(e.target.closest('[data-view="inicio"]'))setTimeout(home,80);if(e.target.closest('[data-view="acoes"]'))setTimeout(render,80)})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
