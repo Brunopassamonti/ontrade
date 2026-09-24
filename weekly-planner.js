@@ -23,6 +23,11 @@ function candidates(){
 function quarter(){return localStorage.getItem(QKEY)||'2026Q3'}
 function quarterData(){var a=window.ANNUAL_KPI_DATA&&window.ANNUAL_KPI_DATA.quarters;return a?a[quarter()]||null:null}
 function trainCount(){var d=quarterData();if(!d)return null;var b=ba();if(b==='TODOS')return d.totals.barStaffTraining;return d.byBA[b]?d.byBA[b].barStaffTraining:null}
+function enrichBAOptions(){
+ var sel=q('#ba-select'),d=window.ANNUAL_KPI_DATA&&window.ANNUAL_KPI_DATA.quarters&&window.ANNUAL_KPI_DATA.quarters['2026Q3'];if(!sel||!d)return;
+ var existing=qa('option',sel).map(function(o){return o.value});
+ Object.keys(d.byBA).sort().forEach(function(name){if(existing.indexOf(name)<0){var o=document.createElement('option');o.value=name;o.textContent=name+' · Report (8)';sel.appendChild(o)}});
+}
 function ensureQuarterControl(){var top=q('.topbar');if(!top||q('#quarter-select'))return;var lab=document.createElement('label');lab.className='ba-filter quarter-filter';lab.innerHTML='<span>QUARTER</span><select id="quarter-select"><option value="2026Q1">Q1 2026</option><option value="2026Q2">Q2 2026</option><option value="2026Q3">Q3 2026</option><option value="2026Q4">Q4 2026</option></select>';top.appendChild(lab);var sel=q('#quarter-select');sel.value=quarter();qa('option',sel).forEach(function(o){if(!(window.ANNUAL_KPI_DATA&&window.ANNUAL_KPI_DATA.quarters&&window.ANNUAL_KPI_DATA.quarters[o.value])){o.textContent+=' · sem dados nesta exportação'}});sel.onchange=function(){localStorage.setItem(QKEY,sel.value);home();render();patchTraining();patchQuarterLabels()}}
 function patchQuarterKpis(){
  var d=quarterData(),b=ba();if(!d)return;
@@ -90,6 +95,6 @@ function home(){
  q('#open-planner',b).onclick=function(){var bt=qa('[data-view="acoes"]')[0];if(bt)bt.click();setTimeout(function(){var x=q('#weekly-planner');if(x)x.scrollIntoView({behavior:'smooth'})},80)};
  patchTraining()
 }
-function init(){ensureQuarterControl();patchQuarterLabels();home();render();patchTraining();patchQuarterKpis();var s=q('#ba-select');if(s)s.addEventListener('change',function(){setTimeout(function(){home();render();patchTraining();patchQuarterKpis()},80)});document.addEventListener('click',function(e){if(e.target.closest('[data-view="inicio"]'))setTimeout(home,80);if(e.target.closest('[data-view="acoes"]'))setTimeout(render,80)})}
+function init(){enrichBAOptions();ensureQuarterControl();patchQuarterLabels();home();render();patchTraining();patchQuarterKpis();var s=q('#ba-select');if(s)s.addEventListener('change',function(){setTimeout(function(){home();render();patchTraining();patchQuarterKpis()},80)});document.addEventListener('click',function(e){if(e.target.closest('[data-view="inicio"]'))setTimeout(home,80);if(e.target.closest('[data-view="acoes"]'))setTimeout(render,80)})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
