@@ -22,9 +22,24 @@ function candidates(){
 }
 function quarter(){return localStorage.getItem(QKEY)||'2026Q3'}
 function quarterData(){var a=window.ANNUAL_KPI_DATA&&window.ANNUAL_KPI_DATA.quarters;return a?a[quarter()]||null:null}
-function trainCount(){var d=quarterData();if(!d)return null;var b=ba();if(b==='TODOS')return d.totals.barStaffTrainingYes;return d.byBA[b]?d.byBA[b].barStaffTrainingYes:null}
+function trainCount(){var d=quarterData();if(!d)return null;var b=ba();if(b==='TODOS')return d.totals.barStaffTraining;return d.byBA[b]?d.byBA[b].barStaffTraining:null}
 function ensureQuarterControl(){var top=q('.topbar');if(!top||q('#quarter-select'))return;var lab=document.createElement('label');lab.className='ba-filter quarter-filter';lab.innerHTML='<span>QUARTER</span><select id="quarter-select"><option value="2026Q1">Q1 2026</option><option value="2026Q2">Q2 2026</option><option value="2026Q3">Q3 2026</option><option value="2026Q4">Q4 2026</option></select>';top.appendChild(lab);var sel=q('#quarter-select');sel.value=quarter();qa('option',sel).forEach(function(o){if(!(window.ANNUAL_KPI_DATA&&window.ANNUAL_KPI_DATA.quarters&&window.ANNUAL_KPI_DATA.quarters[o.value])){o.textContent+=' · sem dados nesta exportação'}});sel.onchange=function(){localStorage.setItem(QKEY,sel.value);home();render();patchTraining();patchQuarterLabels()}}
-function patchQuarterLabels(){var qtr=quarter(),label=qtr.slice(-2)+' 2026',d=quarterData(),ey=q('.topbar .eyebrow');if(ey)ey.textContent='JÄGERMEISTER · ON-TRADE BRASIL · '+label;var st=q('#scorecard-title');if(st)st.textContent='Metas '+label;var note=q('.scorecard-note');if(note){note.textContent=d?'Visão filtrada pelo quarter selecionado. Treinamentos contam Bar Staff Training = Yes nos registros cuja Registration Date está dentro do quarter.':'Sem dados desta exportação para '+label+'. Os números do scorecard histórico não devem ser interpretados como resultado deste quarter.'}var card=q('.scorecard-card');if(card)card.classList.toggle('quarter-unavailable',!d)}
+function patchQuarterKpis(){
+ var d=quarterData(),b=ba();if(!d)return;
+ var x=b==='TODOS'?d.totals:d.byBA[b];if(!x)return;
+ var cards=qa('#metric-grid .metric-card');
+ if(cards[0]){var v=q('.metric-value',cards[0]),f=q('.metric-foot',cards[0]);if(v)v.textContent=b==='TODOS'?d.uniqueVenues:x.uniqueVenues;if(f)f.textContent='casas únicas · '+quarter().slice(-2)}
+ if(cards[1]){var v1=q('.metric-value',cards[1]),f1=q('.metric-foot',cards[1]);if(v1)v1.textContent=x.perfectOutlet;if(f1)f1.textContent='Perfect Outlet · casas únicas no quarter'}
+ var rows=qa('.scorecard-row');
+ var po=rows.filter(function(r){return /Perfect Outlet|ON6/i.test(r.innerText)})[0];
+ if(po&&q('.scorecard-result strong',po))q('.scorecard-result strong',po).textContent=x.perfectOutlet;
+ var tr=rows.filter(function(r){return /Treinamentos/i.test(r.innerText)})[0];
+ if(tr&&q('.scorecard-result strong',tr))q('.scorecard-result strong',tr).textContent=x.barStaffTraining;
+ var act=rows.filter(function(r){return /Cardápio|ativação de consumo/i.test(r.innerText)})[0];
+ if(act&&q('.scorecard-result strong',act))q('.scorecard-result strong',act).textContent=x.activation;
+ var snap=q('.snapshot-note');if(snap)snap.innerHTML='<span class="live-dot"></span><strong>'+quarter().slice(-2)+' 2026 · Report (8)</strong> · '+(b==='TODOS'?d.uniqueVenues:x.uniqueVenues)+' casas únicas · '+(b==='TODOS'?d.records:x.records)+' registros · base de KPI filtrada pelo quarter';
+}
+function patchQuarterLabels(){var qtr=quarter(),label=qtr.slice(-2)+' 2026',d=quarterData(),ey=q('.topbar .eyebrow');if(ey)ey.textContent='JÄGERMEISTER · ON-TRADE BRASIL · '+label;var st=q('#scorecard-title');if(st)st.textContent='Metas '+label;var note=q('.scorecard-note');if(note){note.textContent=d?'Visão filtrada pelo quarter selecionado. Treinamentos contam Bar Staff Training = Yes nos registros cuja Registration Date está dentro do quarter.':'Sem dados desta exportação para '+label+'. Os números do scorecard histórico não devem ser interpretados como resultado deste quarter.'}var card=q('.scorecard-card');if(card)card.classList.toggle('quarter-unavailable',!d);patchQuarterKpis()}
 function patchTraining(){
  var row=qa('.scorecard-row').filter(function(x){return /Treinamentos/i.test(x.innerText)})[0];if(!row)return;
  var st=q('.scorecard-kpi strong',row),sm=q('.scorecard-kpi small',row),n=trainCount();
@@ -75,6 +90,6 @@ function home(){
  q('#open-planner',b).onclick=function(){var bt=qa('[data-view="acoes"]')[0];if(bt)bt.click();setTimeout(function(){var x=q('#weekly-planner');if(x)x.scrollIntoView({behavior:'smooth'})},80)};
  patchTraining()
 }
-function init(){ensureQuarterControl();patchQuarterLabels();home();render();patchTraining();var s=q('#ba-select');if(s)s.addEventListener('change',function(){setTimeout(function(){home();render();patchTraining()},80)});document.addEventListener('click',function(e){if(e.target.closest('[data-view="inicio"]'))setTimeout(home,80);if(e.target.closest('[data-view="acoes"]'))setTimeout(render,80)})}
+function init(){ensureQuarterControl();patchQuarterLabels();home();render();patchTraining();patchQuarterKpis();var s=q('#ba-select');if(s)s.addEventListener('change',function(){setTimeout(function(){home();render();patchTraining();patchQuarterKpis()},80)});document.addEventListener('click',function(e){if(e.target.closest('[data-view="inicio"]'))setTimeout(home,80);if(e.target.closest('[data-view="acoes"]'))setTimeout(render,80)})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
