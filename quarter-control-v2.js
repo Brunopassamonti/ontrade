@@ -5,9 +5,9 @@ const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.quer
 const scope=()=>$('#ba-select')?.value||'BRASIL';
 const qtr=()=>$('#quarter-select')?.value||localStorage.getItem('jager_quarter_view_v1')||'2026Q3';
 const members=s=>{
-  if(s==='BRASIL') return [...(D.t['BAS:BRUNO']||[]),...(D.t['BAS:LEONARDO']||[])];
-  if(s==='GERENTE:BRUNO') return D.t['BAS:BRUNO']||[];
-  if(s==='GERENTE:LEONARDO') return D.t['BAS:LEONARDO']||[];
+  if(s==='BRASIL') return Object.keys(D.b||{});
+  if(s==='GERENTE:BRUNO') return D.t['GERENTE:BRUNO']||[];
+  if(s==='GERENTE:LEONARDO') return D.t['GERENTE:LEONARDO']||[];
   return [s];
 };
 const arr=(ba)=>D.q[qtr()]?.[ba]||[0,0,0,0,0,0,0,0,0,0];
@@ -116,10 +116,34 @@ function renderControl(){
 }
 function fixFilters(){
   const sel=$('#ba-select'); if(!sel)return;
-  const desired=['BRASIL','GERENTE:BRUNO','GERENTE:LEONARDO'];
-  desired.forEach(v=>{const o=$('option[value="'+v+'"]',sel);if(o)o.textContent=v==='BRASIL'?'Visão total':v==='GERENTE:BRUNO'?'Gerência Bruno':'Gerência Leonardo'});
+  const previous=sel.value;
+  const bruno=D.t['BAS:BRUNO']||[], leo=D.t['BAS:LEONARDO']||[];
+  const known=new Set([...bruno,...leo,'Bruno Guedes','Leonardo Pires']);
+  const others=Object.keys(D.b||{}).filter(n=>!known.has(n)&&n!=='Vitor Sena');
+  sel.innerHTML=
+    '<optgroup label="Visão"><option value="BRASIL">Visão total</option></optgroup>'+
+    '<optgroup label="Gerências"><option value="GERENTE:BRUNO">Gerência Bruno</option><option value="GERENTE:LEONARDO">Gerência Leonardo</option></optgroup>'+
+    '<optgroup label="BAs · Bruno">'+bruno.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('')+'</optgroup>'+
+    '<optgroup label="BAs · Leonardo">'+leo.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('')+'</optgroup>'+
+    (others.length?'<optgroup label="Outros owners">'+others.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('')+'</optgroup>':'');
+  sel.value=$('option[value="'+CSS.escape(previous)+'"]',sel)?previous:'BRASIL';
+  const span=$('.ba-filter > span'); if(span)span.textContent='VISÃO · TOTAL, GERÊNCIA OU BA';
 }
-function run(){fixFilters();updateSnapshot();updateCards();updateScore();renderControl();}
+function patchQuarterFrame(){
+  const q=qtr(), qlabel=q.slice(-2)+' 2026';
+  const qs=$('#quarter-select');
+  if(qs){
+    [['2026Q1','Q1 2026'],['2026Q2','Q2 2026'],['2026Q3','Q3 2026'],['2026Q4','Q4 2026']].forEach(([v,t])=>{const o=$('option[value="'+v+'"]',qs);if(o)o.textContent=t;});
+  }
+  const eyebrow=$('.topbar .eyebrow'); if(eyebrow)eyebrow.textContent='JÄGERMEISTER · ON-TRADE BRASIL · '+qlabel;
+  const title=$('#scorecard-title'); if(title)title.textContent='Metas '+qlabel;
+  const card=$('.scorecard-card'); if(card)card.classList.remove('quarter-unavailable');
+  const note=$('.scorecard-note');
+  if(note)note.textContent=q==='2026Q4'
+    ? 'Q4 ainda não possui execução no Report (12). A carteira segue visível como referência e nenhum zero é tratado como resultado executado.'
+    : 'Resultados recalculados com o Report (12) no quarter selecionado. A carteira vem da B.A Management; contratos e metas oficiais permanecem nas bases específicas quando não existem no Report.';
+}
+function run(){fixFilters();patchQuarterFrame();updateSnapshot();updateCards();updateScore();renderControl();}
 document.addEventListener('change',e=>{if(e.target?.id==='ba-select'||e.target?.id==='quarter-select')setTimeout(run,120)});
 document.addEventListener('DOMContentLoaded',()=>setTimeout(run,180));
 setTimeout(run,250);
