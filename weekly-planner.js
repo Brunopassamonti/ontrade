@@ -33,8 +33,8 @@ function patchQuarterKpis(){
  var d=quarterData(),b=ba();if(!d)return;
  var x=b==='TODOS'?d.totals:d.byBA[b];if(!x)return;
  var cards=qa('#metric-grid .metric-card');
- if(cards[0]){var v=q('.metric-value',cards[0]),f=q('.metric-foot',cards[0]);if(v)v.textContent=b==='TODOS'?d.uniqueVenues:x.uniqueVenues;if(f)f.textContent='casas únicas · '+quarter().slice(-2)}
- if(cards[1]){var v1=q('.metric-value',cards[1]),f1=q('.metric-foot',cards[1]);if(v1)v1.textContent=x.perfectOutlet;if(f1)f1.textContent='Perfect Outlet · casas únicas no quarter'}
+ if(cards[0]){var f=q('.metric-foot',cards[0]);if(f)f.textContent='carteira BAM ativa · não confundir com registros do quarter'}
+ if(cards[1]){var v1=q('.metric-value',cards[1]),f1=q('.metric-foot',cards[1]);if(v1)v1.textContent=x.perfectOutlet;if(f1)f1.textContent='Perfect Outlet · casas únicas executadas no quarter'}
  var rows=qa('.scorecard-row');
  var po=rows.filter(function(r){return /Perfect Outlet|ON6/i.test(r.innerText)})[0];
  if(po&&q('.scorecard-result strong',po))q('.scorecard-result strong',po).textContent=x.perfectOutlet;
@@ -42,7 +42,7 @@ function patchQuarterKpis(){
  if(tr&&q('.scorecard-result strong',tr))q('.scorecard-result strong',tr).textContent=x.barStaffTraining;
  var act=rows.filter(function(r){return /Cardápio|ativação de consumo/i.test(r.innerText)})[0];
  if(act&&q('.scorecard-result strong',act))q('.scorecard-result strong',act).textContent=x.activation;
- var snap=q('.snapshot-note');if(snap)snap.innerHTML='<span class="live-dot"></span><strong>'+quarter().slice(-2)+' 2026 · Report (8)</strong> · '+(b==='TODOS'?d.uniqueVenues:x.uniqueVenues)+' casas únicas · '+(b==='TODOS'?d.records:x.records)+' registros · base de KPI filtrada pelo quarter';
+ var snap=q('.snapshot-note');if(snap)snap.innerHTML='<span class="live-dot"></span><strong>'+quarter().slice(-2)+' 2026 · execução</strong> · '+(b==='TODOS'?d.uniqueVenues:x.uniqueVenues)+' casas únicas com registro no quarter · '+(b==='TODOS'?d.records:x.records)+' registros · a carteira continua vindo do BAM';
 }
 function patchQuarterLabels(){var qtr=quarter(),label=qtr.slice(-2)+' 2026',d=quarterData(),ey=q('.topbar .eyebrow');if(ey)ey.textContent='JÄGERMEISTER · ON-TRADE BRASIL · '+label;var st=q('#scorecard-title');if(st)st.textContent='Metas '+label;var note=q('.scorecard-note');if(note){note.textContent=d?'Visão filtrada pelo quarter selecionado. Treinamentos contam Bar Staff Training = Yes nos registros cuja Registration Date está dentro do quarter.':'Sem dados desta exportação para '+label+'. Os números do scorecard histórico não devem ser interpretados como resultado deste quarter.'}var card=q('.scorecard-card');if(card)card.classList.toggle('quarter-unavailable',!d);patchQuarterKpis()}
 function patchTraining(){
