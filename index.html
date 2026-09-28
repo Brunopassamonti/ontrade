@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./weekly-planner.css?v=20260924-1" />
       <link rel="stylesheet" href="./quarter-control-v2.css?v=20260924-1" />
+    <link rel="stylesheet" href="./visit-sources.css?v=20260927-1" />
   </head>
   <body>
     <div class="app-shell">
@@ -81,7 +82,9 @@
             <a href="https://docs.google.com/spreadsheets/d/1ZfyRiL4b_ou_r-9dZD-7Eb_dNCl2a4TlsOukeVZdBjg/edit#gid=1611332193" target="_blank" rel="noreferrer">ver dados atuais ↗</a>
           </div>
 
-          <div class="metric-grid" id="metric-grid"></div>
+          <section id="visit-sources" aria-label="Registros BAM e LUNA"></section>
+        <p class="vs-historical">Indicadores da base anterior abaixo · os novos registros BAM e LUNA estão no painel acima. Carteira e cobertura aguardam uma nova base B.A Management.</p>
+        <div class="metric-grid" id="metric-grid"></div>
 
           <section class="consultant-card" aria-labelledby="consultant-title">
             <div class="consultant-intro">
@@ -324,5 +327,7 @@
     <script src="./weekly-planner.js?v=20260924-4"></script>
     <script src="./quarter-data-v2.js?v=20260924-1"></script>
     <script src="./quarter-control-v2.js?v=20260924-2"></script>
+    <script src="./visit-sources-data.js?v=20260927-1"></script>
+    <script src="./visit-sources.js?v=20260927-1"></script>
   </body>
 </html>
